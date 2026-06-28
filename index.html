@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Transformers &amp; Attention — Course Home</title>
+<link rel="stylesheet" href="assets/lesson.css" />
+<style>
+  .card { display:block; border:1px solid var(--rule); border-radius:8px;
+    padding:1rem 1.2rem; margin:0.8rem 0; background:#fff; }
+  .card:hover { border-color: var(--accent); }
+  .card .n { font-family: ui-sans-serif, system-ui, sans-serif; font-size:0.75rem;
+    letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); }
+  .card .t { font-size:1.15rem; font-weight:600; margin:0.15rem 0; }
+  .card .d { color:var(--muted); font-size:0.96rem; }
+</style>
+</head>
+<body>
+<header>
+  <div class="breadcrumb">Teaching Workspace</div>
+  <h1>Transformers &amp; Attention</h1>
+  <p class="subtitle">A self-paced course on how an LLM actually processes context.</p>
+</header>
+
+<main>
+  <div class="mission">Your mission: hold an accurate, mechanistic model of attention — and
+  connect it back to your day-to-day work with LLMs and AI agents.</div>
+
+  <h2>Lessons</h2>
+  <a class="card" href="lessons/0001-the-attention-blend.html">
+    <div class="n">Lesson 1</div>
+    <div class="t">The Attention Blend</div>
+    <div class="d">What softmax does — turning Q·K scores into a weighted mix of values.</div>
+  </a>
+
+  <p class="note">More lessons appear here as we go: multi-head attention, causal masking,
+  the full transformer block.</p>
+
+  <h2>Reference</h2>
+  <a class="card" href="reference/glossary.html">
+    <div class="n">Reference</div>
+    <div class="t">Glossary</div>
+    <div class="d">The canonical vocabulary every lesson uses.</div>
+  </a>
+
+  <h2>Sources</h2>
+  <ul>
+    <li><a href="https://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a></li>
+    <li><a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need (paper)</a></li>
+    <li><a href="https://poloclub.github.io/transformer-explainer/">Transformer Explainer (interactive)</a></li>
+  </ul>
+</main>
+
+<footer>
+  <p>Built with the <code>teach</code> skill · road-thoughts workspace</p>
+</footer>
+</body>
+</html>
