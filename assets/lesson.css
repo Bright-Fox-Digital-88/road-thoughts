@@ -1,0 +1,188 @@
+/* lesson.css — shared stylesheet for the transformers/attention course.
+   Tufte-inspired: quiet typography, generous margins, restrained color.
+   Every lesson and reference doc links this so the course looks like one thing. */
+
+:root {
+  --ink: #1a1a1a;
+  --paper: #fdfcf9;
+  --muted: #6b6b6b;
+  --rule: #e3ded3;
+  --accent: #7a1f1f;      /* deep red, used sparingly */
+  --accent-soft: #f3e6e6;
+  --key: #1f4e7a;         /* blue, for the "key" role */
+  --key-soft: #e3ecf3;
+  --value: #2f6b3a;       /* green, for the "value" role */
+  --value-soft: #e3f0e6;
+  --query: #7a1f1f;       /* red, for the "query" role */
+  --query-soft: #f3e6e6;
+  --code-bg: #f4f1ea;
+  --maxw: 42rem;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua",
+    Georgia, serif;
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.6;
+  font-size: 1.125rem;
+  margin: 0;
+  padding: 3rem 1.5rem 6rem;
+}
+
+main, header, footer { max-width: var(--maxw); margin-left: auto; margin-right: auto; }
+
+/* Breadcrumb / course position */
+.breadcrumb {
+  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+
+h1 {
+  font-size: 2.1rem;
+  line-height: 1.15;
+  margin: 0.2rem 0 0.4rem;
+  font-weight: 600;
+}
+
+.subtitle { color: var(--muted); font-style: italic; margin-top: 0; }
+
+h2 {
+  font-size: 1.35rem;
+  margin-top: 2.6rem;
+  margin-bottom: 0.6rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.3rem;
+}
+
+h3 { font-size: 1.1rem; margin-top: 1.8rem; margin-bottom: 0.3rem; }
+
+p { margin: 0.9rem 0; }
+
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+a:hover { border-bottom-color: var(--accent); }
+
+code, .mono {
+  font-family: "SF Mono", "JetBrains Mono", "Fira Code", ui-monospace, Menlo, monospace;
+  font-size: 0.92em;
+  background: var(--code-bg);
+  padding: 0.08em 0.35em;
+  border-radius: 3px;
+}
+
+/* Role chips: query / key / value */
+.role { font-weight: 600; padding: 0.05em 0.4em; border-radius: 4px; white-space: nowrap; }
+.role.q { color: var(--query); background: var(--query-soft); }
+.role.k { color: var(--key);   background: var(--key-soft); }
+.role.v { color: var(--value); background: var(--value-soft); }
+
+/* Margin notes — Tufte sidenote feel, but inline & mobile-safe */
+.note {
+  border-left: 3px solid var(--rule);
+  padding: 0.4rem 0 0.4rem 1rem;
+  margin: 1.2rem 0;
+  color: var(--muted);
+  font-size: 0.98rem;
+}
+
+/* Key idea callout */
+.keyidea {
+  background: var(--accent-soft);
+  border-left: 4px solid var(--accent);
+  padding: 0.8rem 1.1rem;
+  border-radius: 0 6px 6px 0;
+  margin: 1.4rem 0;
+}
+.keyidea strong { color: var(--accent); }
+
+/* The mission tie-in box */
+.mission {
+  background: #f0f4f0;
+  border: 1px solid var(--value-soft);
+  border-radius: 6px;
+  padding: 0.8rem 1.1rem;
+  margin: 1.6rem 0;
+  font-size: 0.98rem;
+}
+.mission::before {
+  content: "↳ why this matters for your work";
+  display: block;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--value);
+  margin-bottom: 0.4rem;
+}
+
+/* Step list */
+ol.steps { counter-reset: step; list-style: none; padding-left: 0; }
+ol.steps > li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2.6rem;
+  margin: 1rem 0;
+}
+ol.steps > li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0;
+  width: 1.8rem; height: 1.8rem;
+  background: var(--accent); color: #fff;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.95rem; font-weight: 600;
+}
+
+/* Quiz / retrieval widget (shared component contract) */
+.quiz {
+  background: #fff;
+  border: 1px solid var(--rule);
+  border-radius: 8px;
+  padding: 1.2rem 1.3rem;
+  margin: 1.6rem 0;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+}
+.quiz .q { font-weight: 600; margin-bottom: 0.8rem; }
+.quiz button.opt {
+  display: block; width: 100%; text-align: left;
+  font: inherit; font-size: 0.98rem;
+  background: var(--paper); border: 1px solid var(--rule);
+  border-radius: 6px; padding: 0.6rem 0.8rem; margin: 0.4rem 0;
+  cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.quiz button.opt:hover { border-color: var(--accent); }
+.quiz button.opt.correct { background: var(--value-soft); border-color: var(--value); }
+.quiz button.opt.wrong   { background: var(--query-soft); border-color: var(--query); }
+.quiz .feedback { margin-top: 0.7rem; font-size: 0.96rem; min-height: 1.4rem; }
+.quiz .feedback.show { animation: fade 0.3s ease; }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+table.attn { border-collapse: collapse; margin: 1.2rem 0; font-size: 0.95rem; width: 100%; }
+table.attn th, table.attn td { border: 1px solid var(--rule); padding: 0.4rem 0.6rem; text-align: center; }
+table.attn th { background: var(--code-bg); font-family: ui-sans-serif, system-ui, sans-serif; font-size: 0.85rem; }
+
+footer {
+  margin-top: 4rem;
+  border-top: 1px solid var(--rule);
+  padding-top: 1.2rem;
+  font-size: 0.95rem;
+  color: var(--muted);
+}
+.nav { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; }
+
+.ask {
+  background: var(--accent-soft);
+  border-radius: 6px; padding: 0.7rem 1rem; margin: 1.4rem 0;
+  font-size: 0.96rem;
+}
+.ask::before { content: "💬 "; }

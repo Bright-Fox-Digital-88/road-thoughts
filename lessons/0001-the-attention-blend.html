@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 1 · The Attention Blend</title>
+<link rel="stylesheet" href="../assets/lesson.css" />
+</head>
+<body>
+<header>
+  <div class="breadcrumb">Transformers &amp; Attention · Lesson 1 of N</div>
+  <h1>The Attention Blend</h1>
+  <p class="subtitle">What softmax actually does — turning Q·K scores into a weighted mix of values.</p>
+</header>
+
+<main>
+
+<p>You left off at exactly the right cliff edge: you have your <span class="role q">query</span>,
+<span class="role k">key</span>, and <span class="role v">value</span> vectors, and you're
+staring at the <code>softmax</code>. This lesson crosses that gap. By the end you'll be able to
+say, precisely, what attention <em>computes</em> — not as a metaphor, but as an operation.</p>
+
+<div class="keyidea">
+  <strong>The one idea:</strong> Attention produces, for each token, a <em>weighted average of
+  every token's <span class="role v">value</span> vector</em>. The weights say "how much should
+  I listen to you?", and <code>softmax</code> is what turns raw compatibility scores into those
+  weights.
+</div>
+
+<h2 id="setup">The setup you already have</h2>
+
+<p>For every token, three learned projections produce three vectors
+(<a href="https://jalammar.github.io/illustrated-transformer/">Illustrated Transformer</a>):</p>
+
+<ul>
+  <li><span class="role q">query</span> — "what am I looking for?"</li>
+  <li><span class="role k">key</span> — "what do I offer, so others can find me?"</li>
+  <li><span class="role v">value</span> — "the actual content I'll hand over if attended to."</li>
+</ul>
+
+<p>The <span class="role q">query</span>/<span class="role k">key</span> split is the subtle part.
+A token doesn't ask "who is <em>similar</em> to me?" — it asks "who is <em>relevant</em> to me?"
+The word <em>it</em> isn't similar to <em>cat</em> in embedding space, yet <em>cat</em> is exactly
+what <em>it</em> needs. Separate Q and K projections let the model <em>learn</em> relevance instead
+of settling for raw similarity.</p>
+
+<h2 id="recipe">The recipe: scaled dot-product attention</h2>
+
+<p>This is the whole mechanism, in four moves (paper §3.2,
+<a href="https://arxiv.org/abs/1706.03762">Vaswani et al. 2017</a>):</p>
+
+<ol class="steps">
+  <li><strong>Score.</strong> Take one token's <span class="role q">query</span> and dot it with
+    <em>every</em> token's <span class="role k">key</span>. A big dot product = "you're relevant
+    to me." This gives one raw score per token.</li>
+  <li><strong>Scale.</strong> Divide every score by <span class="mono">√d<sub>k</sub></span>
+    (the key dimension). Without this, large dimensions make the dot products huge, and softmax
+    would saturate into a near-one-hot spike with vanishing gradients. The scale keeps it sane.</li>
+  <li><strong>Softmax.</strong> Push the scaled scores through <code>softmax</code>. Now they're
+    all positive and <em>sum to 1</em> — a probability distribution over "how much attention to
+    pay to each token."</li>
+  <li><strong>Blend.</strong> Multiply each token's <span class="role v">value</span> by its weight
+    and add them all up. That weighted sum <em>is</em> this token's attention output.</li>
+</ol>
+
+<p class="mono" style="text-align:center; font-size:1.05rem; margin:1.4rem 0;">
+  Attention(Q, K, V) = softmax( Q·Kᵀ / √d<sub>k</sub> ) · V
+</p>
+
+<p>That single line is the entire heart of "Attention Is All You Need." Everything else —
+multi-head, stacking, feed-forward layers — wraps around this.</p>
+
+<h2 id="worked">A worked blend</h2>
+
+<p>Say the token <em>it</em> produces three scaled scores against
+<em>cat</em>, <em>mat</em>, and <em>sat</em>:</p>
+
+<table class="attn">
+  <tr><th>against</th><th>scaled score (Q·K)</th><th>after softmax (weight)</th></tr>
+  <tr><td>cat</td><td>4.0</td><td>0.84</td></tr>
+  <tr><td>mat</td><td>2.0</td><td>0.11</td></tr>
+  <tr><td>sat</td><td>1.0</td><td>0.05</td></tr>
+</table>
+
+<p>Softmax exponentiates each score and normalizes, so the gap between 4.0 and 2.0 becomes a
+<em>large</em> gap in weight (0.84 vs 0.11) — exponentials exaggerate. The output for <em>it</em>
+is then:</p>
+
+<p class="mono" style="text-align:center;">
+  0.84 · V<sub>cat</sub> + 0.11 · V<sub>mat</sub> + 0.05 · V<sub>sat</sub>
+</p>
+
+<p>Mostly <em>cat</em>'s value, a whisper of the others. The token <em>it</em> has just pulled in
+the meaning of <em>cat</em> — that's coreference resolution falling out of pure arithmetic.</p>
+
+<div class="note">
+  Notice nothing here is "fetched" or "stored" in the database sense. Attention never picks one
+  winner; it always returns a <em>blend</em>. Even a confident 0.84 still mixes in the rest. That
+  softness is exactly why it's differentiable and trainable.
+</div>
+
+<h2 id="check">Check yourself (retrieval practice)</h2>
+
+<p>Don't peek above. Pull the answer from memory — that effort is what makes it stick.</p>
+
+<div class="quiz" id="quiz1">
+  <div class="q">In scaled dot-product attention, what does <code>softmax</code> produce?</div>
+  <button class="opt" data-correct="true">Weights across tokens that sum to one</button>
+  <button class="opt">Brand new value vectors for each token</button>
+  <button class="opt">Raw scores before any scaling happens here</button>
+  <div class="feedback"></div>
+</div>
+
+<div class="quiz" id="quiz2">
+  <div class="q">Why divide the scores by <span class="mono">√d<sub>k</sub></span> before softmax?</div>
+  <button class="opt" data-correct="true">To stop large scores from saturating softmax</button>
+  <button class="opt">To make every token weight exactly equal</button>
+  <button class="opt">To turn the keys into query vectors first</button>
+  <div class="feedback"></div>
+</div>
+
+<div class="mission">
+  When you stuff more context into a prompt, every token's <span class="role q">query</span> now
+  scores against <em>every</em> other token's <span class="role k">key</span> — an N×N comparison.
+  That quadratic blow-up is <em>why</em> long context is slow and expensive, and why the attention
+  weights are where "what the model is paying attention to" literally lives. You're now looking at
+  the exact operation your agents pay for, token by token.
+</div>
+
+<h2 id="next">Where this goes next</h2>
+<p>You've got <em>one</em> attention computation. The natural next lessons:</p>
+<ul>
+  <li><strong>Multi-head attention</strong> — why run this 8 times in parallel? (Different heads
+    learn different relationships.)</li>
+  <li><strong>Causal masking</strong> — how a decoder stops a token from attending to the future.</li>
+  <li><strong>The full block</strong> — what the feed-forward layer and residual connections add
+    after attention.</li>
+</ul>
+
+<div class="ask">
+  I'm your teacher here — if any step felt hand-wavy (the √d<sub>k</sub> scaling and "why a blend,
+  not a pick" are the usual sticking points), <strong>ask me a follow-up</strong> and we'll go
+  deeper before the next lesson.
+</div>
+
+<h3 id="source">Read next (primary source)</h3>
+<p>The single best companion to this lesson:
+<a href="https://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a> —
+scroll to "Self-Attention in Detail" for the same recipe drawn out with matrices. For the source of
+truth, §3.2 of <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a>.
+Want to <em>see</em> it live? Poke
+<a href="https://poloclub.github.io/transformer-explainer/">Transformer Explainer</a> and watch the
+attention weights shift as you type.</p>
+
+</main>
+
+<footer>
+  <div class="nav">
+    <span>Lesson 1 · The Attention Blend</span>
+    <span><a href="../reference/glossary.html">Glossary →</a></span>
+  </div>
+  <p style="margin-top:1rem;">Tied to your mission: <em>understanding how context is processed
+  inside an LLM.</em></p>
+</footer>
+
+<script>
+  document.querySelectorAll('.quiz').forEach(function (quiz) {
+    var fb = quiz.querySelector('.feedback');
+    quiz.querySelectorAll('button.opt').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var correct = btn.dataset.correct === 'true';
+        btn.classList.add(correct ? 'correct' : 'wrong');
+        fb.classList.add('show');
+        if (correct) {
+          fb.textContent = '✓ Right — softmax outputs a probability distribution over tokens.';
+        } else {
+          fb.textContent = '✗ Not quite — recall the four moves: score, scale, softmax, blend.';
+        }
+      });
+    });
+  });
+</script>
+</body>
+</html>

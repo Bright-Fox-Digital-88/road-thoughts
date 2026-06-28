@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Glossary · Transformers &amp; Attention</title>
+<link rel="stylesheet" href="../assets/lesson.css" />
+</head>
+<body>
+<header>
+  <div class="breadcrumb">Transformers &amp; Attention · Reference</div>
+  <h1>Glossary</h1>
+  <p class="subtitle">The canonical language for this course. Lessons adhere to these terms.</p>
+</header>
+
+<main>
+<p>A term lands here only once it's genuinely understood — this is a record of compressed
+knowledge, not a dictionary to read cold.</p>
+
+<h2 id="attention">Attention</h2>
+
+<p><strong>Query (Q)</strong><br/>
+A token's learned projection meaning "what I'm looking for." It scores against every key to decide
+where to attend. <em>Avoid</em>: search term, question vector.</p>
+
+<p><strong>Key (K)</strong><br/>
+A token's learned projection meaning "what I offer, so others can find me." Compared against queries
+via dot product. <em>Avoid</em>: index, address.</p>
+
+<p><strong>Value (V)</strong><br/>
+A token's learned projection holding the content actually handed over when attended to. The
+attention output is a weighted sum of values. <em>Avoid</em>: payload, data.</p>
+
+<p><strong>Attention score</strong><br/>
+The raw dot product of one query with one key — a single number for "how relevant is this token to
+me," before scaling or softmax. <em>Avoid</em>: similarity, match.</p>
+
+<p><strong>Scaled dot-product attention</strong><br/>
+The core operation <span class="mono">softmax(Q·Kᵀ / √d<sub>k</sub>)·V</span>: score, scale,
+softmax, blend. The heart of the transformer. <em>Avoid</em>: the attention formula.</p>
+
+<p><strong>Softmax (in attention)</strong><br/>
+The step that turns scaled scores into positive weights summing to one — a probability distribution
+over which tokens to attend to. <em>Avoid</em>: normalization.</p>
+
+<p><strong>Attention weights</strong><br/>
+The post-softmax distribution itself: how much each token listens to each other token. This is where
+"what the model is attending to" literally lives. <em>Avoid</em>: attention scores (those are pre-softmax).</p>
+
+<p><strong>The blend</strong><br/>
+Workspace shorthand for the final weighted sum of value vectors — attention always returns a mix,
+never a single winner.</p>
+
+<div class="note">More terms (multi-head, causal mask, residual stream, positional encoding) get added
+here as you master them — not before.</div>
+</main>
+
+<footer>
+  <div class="nav">
+    <span>Glossary</span>
+    <span><a href="../lessons/0001-the-attention-blend.html">← Lesson 1</a></span>
+  </div>
+</footer>
+</body>
+</html>
