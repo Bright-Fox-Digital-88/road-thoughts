@@ -186,3 +186,39 @@ footer {
   font-size: 0.96rem;
 }
 .ask::before { content: "💬 "; }
+
+/* ── Hands-free audio player (assets/speech.js) ───────────────────── */
+.tts-bar {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 1000;
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.7rem 1rem calc(0.7rem + env(safe-area-inset-bottom));
+  background: rgba(26,26,26,0.96);
+  border-top: 1px solid #000;
+  font-family: ui-sans-serif, system-ui, -apple-system, sans-serif;
+  box-shadow: 0 -2px 12px rgba(0,0,0,0.25);
+}
+.tts-bar button {
+  font: inherit; color: #fff; background: #333; border: 1px solid #555;
+  border-radius: 8px; padding: 0.55rem 0.7rem; min-width: 2.8rem;
+  min-height: 2.8rem; font-size: 1.15rem; cursor: pointer; line-height: 1;
+}
+.tts-bar button.primary { background: var(--accent); border-color: var(--accent); flex: 0 0 auto; }
+.tts-bar button:active { transform: scale(0.96); }
+.tts-bar .tts-status {
+  color: #d8d2c4; font-size: 0.82rem; flex: 1 1 auto;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.tts-bar .tts-speed { color: #fff; font-size: 0.85rem; min-width: 3.2rem; text-align: center; }
+body.has-tts { padding-bottom: 6.5rem; }
+
+/* Current block being read aloud */
+.tts-active {
+  background: #fff6d6;
+  box-shadow: 0 0 0 0.4rem #fff6d6;
+  border-radius: 3px;
+  scroll-margin-top: 30vh;
+  scroll-margin-bottom: 30vh;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .tts-active { transition: background 0.2s; }
+}
