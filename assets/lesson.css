@@ -187,6 +187,35 @@ footer {
 }
 .ask::before { content: "💬 "; }
 
+/* ── Artifact state-cards (story props that map to internal states) ── */
+.artifact {
+  display: flex; gap: 1rem; align-items: flex-start;
+  background: linear-gradient(180deg, #fffdf7, #faf6ec);
+  border: 1px solid var(--rule);
+  border-left: 4px solid var(--accent);
+  border-radius: 8px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.4rem 0;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}
+.artifact .icon { font-size: 2rem; line-height: 1; flex: 0 0 auto; }
+.artifact .body { flex: 1 1 auto; }
+.artifact .name {
+  font-weight: 600; font-size: 1.05rem; display: block;
+}
+.artifact .maps {
+  display: block; font-style: italic; color: var(--accent);
+  font-size: 0.9rem; margin: 0.1rem 0 0.5rem;
+}
+.artifact .desc { display: block; font-size: 0.98rem; }
+
+/* Movement / scene heading inside a story */
+.movement {
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--muted); margin: 2.4rem 0 0.2rem;
+}
+
 /* ── Hands-free audio player (assets/speech.js) ───────────────────── */
 .tts-bar {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 1000;

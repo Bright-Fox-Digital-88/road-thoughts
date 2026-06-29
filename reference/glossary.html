@@ -50,10 +50,34 @@ The post-softmax distribution itself: how much each token listens to each other 
 
 <p><strong>The blend</strong><br/>
 Workspace shorthand for the final weighted sum of value vectors — attention always returns a mix,
-never a single winner.</p>
+never a single winner. <em>Story:</em> the Cup.</p>
 
-<div class="note">More terms (multi-head, causal mask, residual stream, positional encoding) get added
-here as you master them — not before.</div>
+<h2 id="structure">Structure &amp; flow</h2>
+
+<p><strong>Layer</strong><br/>
+One full round of <em>mix then digest</em>: attention across tokens, then a per-token feed-forward
+step. Models stack dozens (GPT-3 has 96). Each layer re-contextualizes the last.
+<em>Story:</em> a movement of the evening, called by the Bell.</p>
+
+<p><strong>Feed-forward step</strong><br/>
+The per-token "digest" inside a layer: each token processes its own blend <em>alone</em>, with no
+awareness of other tokens. The most parallel part of the machine. <em>Story:</em> the Study.</p>
+
+<p><strong>Causal mask</strong><br/>
+The rule that a token may attend only to tokens before it, never after. Makes each token's state
+depend only on its left context — which is what makes caching exact. <em>Story:</em> the Threshold
+Rule. <em>Avoid</em>: look-ahead block.</p>
+
+<p><strong>KV cache</strong><br/>
+The stored keys and values for one specific running sequence, computed once and reused so each new
+generated token isn't recomputed from scratch. Valid <em>because</em> of the causal mask.</p>
+
+<p><strong>Prefill vs decode</strong><br/>
+<strong>Prefill</strong>: pushing the whole prompt through all layers in parallel (the expensive,
+quadratic part). <strong>Decode</strong>: generating one token at a time, reusing the KV cache.</p>
+
+<div class="note">Still to be added as you master them: multi-head attention, temperature,
+positional encoding, residual stream.</div>
 </main>
 
 <footer>

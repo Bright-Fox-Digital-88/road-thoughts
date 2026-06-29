@@ -22,6 +22,7 @@
     "main .keyidea", "main .mission", "main .note", "main .ask",
     "main .quiz .q", "main .quiz .opt",
     "main table.attn tr",
+    "main .artifact .name", "main .artifact .maps", "main .artifact .desc",
     ".card .t", ".card .d"
   ].join(", ");
 

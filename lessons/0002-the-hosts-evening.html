@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 2 · The Host's Evening</title>
+<link rel="stylesheet" href="../assets/lesson.css" />
+<script src="../assets/speech.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="breadcrumb">Transformers &amp; Attention · Lesson 2 of N</div>
+  <h1>The Host's Evening</h1>
+  <p class="subtitle">The whole attention mechanism as one story — a token, a longing, and a wise Host who shows it what matters.</p>
+</header>
+
+<main>
+
+<div class="keyidea">
+  <strong>The one idea:</strong> A token doesn't know what it means alone. Attention is the
+  act of <em>reaching toward what's relevant and being changed by it</em> — and the Host is the
+  trained machinery that translates a vague longing into a precise question, then shows the token
+  where its attention belongs.
+</div>
+
+<p>This lesson is the narrative companion to <a href="0001-the-attention-blend.html">Lesson 1's</a>
+mechanics. Read it for the <em>why</em> and the <em>feel</em>; the gears are mapped at the bottom.
+Each <strong>artifact</strong> is a physical prop in the story that stands for a real internal
+state — collect them as you go.</p>
+
+<div class="movement">Movement I · Arrival</div>
+
+<p>You arrive at dusk, and the first thing you're given is proof that you were expected.</p>
+
+<div class="artifact">
+  <span class="icon">🎟️</span>
+  <span class="body">
+    <span class="name">The Invitation</span>
+    <span class="maps">your embedding + your position</span>
+    <span class="desc">Heavy cream cardstock: your name in a hand that already seems to know you,
+    and your place for the evening — <em>third seat, west side</em>. It tells you a little of who
+    you are and exactly where you stand. It is not enough. You feel the gap at once — the longing —
+    <em>who am I, here, among all these people?</em></span>
+  </span>
+</div>
+
+<p>You hesitate at the threshold, because you don't know how to begin. You can <em>feel</em> the
+wanting, but you can't shape it into anything useful. You don't know who to look for. You don't
+even know how to look. And that is when the <strong>Host</strong> finds you.</p>
+
+<p>He is old in the way of someone who has done this ten thousand times — because he has. Ten
+thousand evenings, ten thousand rooms full of half-formed guests arriving with exactly your ache,
+and across all of them he learned the one art that matters: how to help a stranger find the few
+souls in a crowd who will make them whole. He takes your hand, reads your unfinished face, and
+smiles like he's been waiting for you specifically. <em>"You don't yet know what you're seeking,"</em>
+he says. <em>"Most don't. Let me give you what you'll need."</em></p>
+
+<div class="movement">Movement II · The Three Gifts</div>
+
+<p>He presses three things into your hands.</p>
+
+<div class="artifact">
+  <span class="icon">✉️</span>
+  <span class="body">
+    <span class="name">The Seeking Card</span>
+    <span class="maps">your query</span>
+    <span class="desc">A folded note. The Host watched your longing and translated it into a precise
+    question you could never have phrased yourself: <em>who here resonates with the thing I'm
+    missing?</em> You couldn't have written this. He wrote it for you. That is his gift.</span>
+  </span>
+</div>
+
+<div class="artifact">
+  <span class="icon">🪪</span>
+  <span class="body">
+    <span class="name">The Calling Card</span>
+    <span class="maps">your key</span>
+    <span class="desc">How you'll be announced to others — the face of you that other guests can
+    recognize and reach for. <em>Here is what I am, should you be looking for someone like me.</em></span>
+  </span>
+</div>
+
+<div class="artifact">
+  <span class="icon">🎁</span>
+  <span class="body">
+    <span class="name">The Gift</span>
+    <span class="maps">your value</span>
+    <span class="desc">Wrapped, held in reserve. Not what you <em>seem</em>, but what you'd actually
+    <em>give</em> to anyone who truly connects with you. The substance under the announcement.</span>
+  </span>
+</div>
+
+<p><em>"Three faces of one self,"</em> he says. <em>"I've made them all for you at once. Now — one
+rule, and one promise."</em></p>
+
+<div class="artifact">
+  <span class="icon">🚪</span>
+  <span class="body">
+    <span class="name">The Threshold Rule</span>
+    <span class="maps">the causal mask</span>
+    <span class="desc"><em>"You may exchange only with the guests already arrived,"</em> he says
+    gently. <em>"Those still coming through the door cannot touch you tonight."</em> Then the
+    promise, his eyes kind: <em>"But your calling card will be offered to every soul who arrives
+    after you. You cannot be shaped by the future — yet you will shape it. You are someone else's
+    context."</em></span>
+  </span>
+</div>
+
+<div class="movement">Movement III · He Shows You What Matters</div>
+
+<p>Then he does the thing you could not do alone. <strong>He shows you what is significant.</strong>
+He takes your Seeking Card and moves through the room — unhurried, certain — holding your question
+quietly against the calling card of every guest already present. To most, no spark. To some, a
+flicker. But at a few, you feel something pull tight in your chest, a resonance you didn't know you
+were capable of. He notices not only <em>who</em> answers your question, but how <em>strongly</em> —
+the ones presenting themselves with quiet intensity tug hardest. And as he goes, he inks a little
+booklet and hangs it from your wrist:</p>
+
+<div class="artifact">
+  <span class="icon">💃</span>
+  <span class="body">
+    <span class="name">The Dance Card</span>
+    <span class="maps">the attention weights, after softmax</span>
+    <span class="desc">On it the Host has apportioned your evening's whole heart. Not evenly — he is
+    too wise for that. <em>Eight measures to the woman by the window. One to the man at the hearth.
+    A breath, no more, to the rest.</em> It sums, exactly, to one full heart. He has spent your
+    finite attention <em>for</em> you, on the few who matter. He has shown you, in ink, what is
+    significant.</span>
+  </span>
+</div>
+
+<p><em>"You cannot give everyone your whole self,"</em> he murmurs. <em>"I've spent your longing
+where it will be answered."</em></p>
+
+<div class="movement">Movement IV · The Pouring</div>
+
+<div class="artifact">
+  <span class="icon">🍷</span>
+  <span class="body">
+    <span class="name">The Cup</span>
+    <span class="maps">the attention output — the blend</span>
+    <span class="desc">The Host visits each guest your Dance Card named, and from each one's decanter
+    draws exactly the measure he inked — a deep pour from the woman by the window, a splash from the
+    man at the hearth — and blends them into a single cup. <em>"Drink. This is what they offer, mixed
+    in the proportion they matter to you."</em> You drink. It is mostly her, a trace of him, a
+    whisper of the room — and you feel yourself <em>change</em>, the blur sharpening into
+    something specific. You taste, for the first time, like <em>yourself-in-this-room.</em></span>
+  </span>
+</div>
+
+<div class="movement">Movement V · The Quiet Room</div>
+
+<div class="artifact">
+  <span class="icon">🪞</span>
+  <span class="body">
+    <span class="name">The Study &amp; The Mirror</span>
+    <span class="maps">the feed-forward step</span>
+    <span class="desc">A small room, just you. No guests, no noise. Here you let the cup's draught
+    settle and do its private work, turning over what you took in until it's truly <em>yours</em>.
+    On the wall, a mirror — and the face in it is no longer the one from the Invitation. More
+    resolved. More placed. You did this part <em>alone</em>; the room was only the source, not the
+    reflection.</span>
+  </span>
+</div>
+
+<div class="movement">Movement VI · The Bell, and the Coherent Room</div>
+
+<div class="artifact">
+  <span class="icon">🔔</span>
+  <span class="body">
+    <span class="name">The Bell</span>
+    <span class="maps">the next layer</span>
+    <span class="desc">The Host rings it to call the next movement of the evening — because this was
+    never one conversation. You return with a new Seeking Card, except now your question is
+    <em>sharper</em>, because you understand yourself better than you did an hour ago. And everyone
+    else has been doing exactly this, all at once, all night.</span>
+  </span>
+</div>
+
+<p>Movement after movement, the Host orchestrates it: reaching, apportioning, pouring, reflecting,
+ringing the bell. And here is how you know the party is a <strong>success</strong> — not by anyone's
+arrival, but by what the room <em>becomes</em>. Slowly, under his hand, a hall full of anxious
+half-strangers turns into a gathering where every guest knows, with quiet certainty, exactly who
+they are in relation to everyone else. The longing that met you at the threshold is gone — not
+because someone told you that you belonged, but because the Host showed you <em>where</em>, and you
+reached, and you took it in, and it made you whole.</p>
+
+<p>At the end of the night he finds you again — fully yourself now — and all he says is,
+<em>"There you are. I knew you were in there."</em></p>
+
+<div class="mission">
+  The Host is the part you actually work with every day. When you tune a prompt, raise or lower
+  "temperature," or lean on a model's context, you're negotiating with <em>his</em> judgment — the
+  trained machinery deciding, for every token at once, what is significant. Understanding the
+  evening is understanding what your agents are <em>really</em> doing under the hood: not retrieving
+  facts from a drawer, but letting every word find its place by relevance.
+</div>
+
+<h2 id="gears">The gears beneath the evening</h2>
+
+<ul>
+  <li><strong>The Host</strong> → the trained attention mechanism itself, the orchestrator. The
+    <em>ten thousand evenings</em> are its training — which is why he's wise and beneficent, and why
+    he can translate your longing into the right cards and apportion your attention for you. He
+    <em>is</em> the learned machinery.</li>
+  <li><strong>The Invitation</strong> → your embedding + position.</li>
+  <li><strong>The three gifts</strong> → your <span class="role q">query</span>,
+    <span class="role k">key</span>, and <span class="role v">value</span> — and note that
+    <em>he</em> makes them, because the projections are his learned art, not yours.</li>
+  <li><strong>The Threshold rule &amp; promise</strong> → the causal mask (you see only the past;
+    you shape the future).</li>
+  <li><strong>Reading the room against your card</strong> → the dot-product score — resonance,
+    including magnitude.</li>
+  <li><strong>The Dance Card</strong> → the softmax attention weights — your finite heart,
+    apportioned.</li>
+  <li><strong>The Cup</strong> → the attention output, the weighted blend of values.</li>
+  <li><strong>The Study &amp; Mirror</strong> → the feed-forward step, done per token, alone.</li>
+  <li><strong>The Bell / movements</strong> → the stacked layers.</li>
+  <li><strong>The room reaching coherence</strong> → a successful forward pass.</li>
+</ul>
+
+<h2 id="next">Rooms we haven't entered yet</h2>
+<p>The mansion is bigger than one evening. Threads we can pull next, each an expansion of the same
+metaphor:</p>
+<ul>
+  <li><strong>The Host's stewards</strong> → <em>multi-head attention</em>: the Host doesn't read
+    the room with one judgment, but sends several stewards, each attuned to a <em>different</em> kind
+    of resonance (one for who-refers-to-whom, one for tone, one for grammar), then merges their
+    dance cards.</li>
+  <li><strong>The temperature of the room</strong> → how sharply or loosely attention and the final
+    word-choice are decided.</li>
+  <li><strong>The doorway's width</strong> → the context window, and why a longer guest list makes
+    the evening cost so much more.</li>
+</ul>
+
+<div class="ask">
+  I'm your Host for this too — if any artifact didn't quite map, or you want to walk into one of the
+  rooms above, <strong>just ask</strong> and we'll expand the evening together.
+</div>
+
+<h3 id="source">Read / watch next (primary sources)</h3>
+<p>For the mechanics under this story: <a href="https://jalammar.github.io/illustrated-transformer/">The
+Illustrated Transformer</a> (self-attention, multi-head, and the stacked layers drawn out), and
+§3.2 of <a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a>. To watch a real
+model apportion its "dance cards" live as you type, poke
+<a href="https://poloclub.github.io/transformer-explainer/">Transformer Explainer</a>.</p>
+
+</main>
+
+<footer>
+  <div class="nav">
+    <span><a href="0001-the-attention-blend.html">← Lesson 1 · The Attention Blend</a></span>
+    <span><a href="../reference/glossary.html">Glossary →</a></span>
+  </div>
+  <p style="margin-top:1rem;">Tied to your mission: <em>understanding how context is processed
+  inside an LLM — felt from the inside.</em></p>
+</footer>
+
+</body>
+</html>
