@@ -129,6 +129,12 @@ Drawing the next token from the softmax distribution. <strong>Greedy</strong> = 
 Generate one token, append it, run the pass again (reusing the KV cache) to generate the next.
 <em>Story:</em> the Door Read Backwards.</p>
 
+<p><strong>Chain-of-thought (CoT)</strong><br/>
+Emitting intermediate reasoning as tokens before the final answer. Works because each emitted token
+gets its own full forward pass and becomes a durable, re-attendable record — extending the model's
+finite per-step compute and memory. Mechanically no different from any other token; the distinction
+is content/convention. <em>Story:</em> the Pinned Note.</p>
+
 <div class="note">Still to be added as you master them: multi-head attention, positional encoding,
 training / gradient descent.</div>
 </main>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 5 · The Pinned Note</title>
+<link rel="stylesheet" href="../assets/lesson.css" />
+<script src="../assets/speech.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="breadcrumb">Transformers &amp; Attention · Side-lesson (applied)</div>
+  <h1>The Pinned Note</h1>
+  <p class="subtitle">Why chain-of-thought works — a practical detour built on the frozen past.</p>
+</header>
+
+<main>
+
+<div class="keyidea">
+  <strong>The one idea:</strong> A single forward pass has a <em>finite</em> amount of internal
+  scratch and a <em>fixed</em> amount of computation. Chain-of-thought breaks that ceiling by
+  <em>emitting an intermediate result as a token</em> — moving it out of the ephemeral internal state
+  and into the durable token stream, where every future step can read it back <em>exactly</em>.
+</div>
+
+<p>This is the practitioner's payoff from <a href="0004-the-reading-of-the-last-line.html">the read-out</a>
+and the causal mask. It explains why "think step by step" makes models smarter — and it rests entirely
+on a guarantee you've already met.</p>
+
+<div class="movement">Movement I · There is no special "thinking" token</div>
+
+<div class="artifact">
+  <span class="icon">🎭</span>
+  <span class="body">
+    <span class="name">No Token Has a Type</span>
+    <span class="maps">CoT vs output is convention, not mechanism</span>
+    <span class="desc">The model never flips a switch between "this token is for thinking" and "this
+    one's for the user." Every token is minted by the <em>identical</em> operation — run the pass,
+    soften the logits, sample. What makes a span "reasoning" versus "answer" is purely
+    <em>content and convention</em>: tags, training, or a harness that hides the reasoning. The
+    "strategy" is learned behaviour expressed through <em>content</em>, not a different machine.</span>
+  </span>
+</div>
+
+<div class="movement">Movement II · The past is frozen — guaranteed, not hoped</div>
+
+<div class="artifact">
+  <span class="icon">🧊</span>
+  <span class="body">
+    <span class="name">The Frozen Past</span>
+    <span class="maps">causal-mask invariance (the basis of the KV cache)</span>
+    <span class="desc">Each token's representation depends only on the tokens to its <em>left</em>.
+    Appending a new token happens at the <em>right</em> end. So the prior tokens' entire
+    manifestation stack — every layer, every vector — is <em>bit-for-bit identical</em> whether or not
+    the new token exists. The model doesn't <em>trust</em> this; it's structurally guaranteed. With
+    the KV cache the past isn't even recomputed — it's reused, precisely because recomputing would
+    yield the same numbers.</span>
+  </span>
+</div>
+
+<div class="note">The whole forward pass is <strong>deterministic</strong> — same weights, same prior
+tokens, same result, every time. The <em>only</em> dice roll is the sampling step at the very end. So
+"would the prior stack come out the same?" — yes, by construction.</div>
+
+<div class="movement">Movement III · What the note actually buys</div>
+
+<div class="artifact">
+  <span class="icon">📌</span>
+  <span class="body">
+    <span class="name">The Pinned Note</span>
+    <span class="maps">an emitted intermediate result, made durable</span>
+    <span class="desc">A single position's internal scratchpad is finite (fixed width, fixed number
+    of layers) — a hard ceiling on the serial reasoning possible for <em>one</em> prediction. Emitting
+    an intermediate conclusion as a <em>token</em> moves it <em>out</em> of that ephemeral state
+    (which would be discarded) and <em>into</em> the durable token stream — where it survives and the
+    next pass can attend to it. Each emitted token got its own full forward pass; its conclusion is
+    now a fixture later passes build on. That is how the model buys <em>more total computation</em>
+    and an <em>external memory.</em></span>
+  </span>
+</div>
+
+<p>It is, exactly, <strong>showing your work on paper</strong>: you offload intermediate conclusions
+so you don't have to hold them all in a finite head, and so later steps can reference them precisely.</p>
+
+<div class="movement">Movement IV · One direction only</div>
+
+<div class="artifact">
+  <span class="icon">➡️</span>
+  <span class="body">
+    <span class="name">Forward-Only Influence</span>
+    <span class="maps">appending shapes the future, never the past</span>
+    <span class="desc">A pinned note can't change how an earlier token thought — but it steers every
+    token that comes <em>after</em> it, because they can all attend back to it. That asymmetry is the
+    whole point: the reasoning helps because you've planted a result the rest of the generation will
+    lean on.</span>
+  </span>
+</div>
+
+<div class="mission">
+  Practitioner takeaways for your agent work:
+  <ul style="margin:0.4rem 0 0;">
+    <li><strong>"Think step by step" works</strong> because it hands the model a bigger, external
+      scratchpad when its internal one would overflow.</li>
+    <li><strong>Reasoning models emit many tokens</strong> on purpose — each is more compute and more
+      persisted memory, not just verbosity.</li>
+    <li><strong>Hidden reasoning still costs tokens</strong> — the harness may hide the span from you,
+      but those tokens were generated and attended to all the same.</li>
+    <li><strong>Order matters</strong>: a conclusion only helps tokens that come after it. Put the
+      reasoning <em>before</em> the answer, never after.</li>
+  </ul>
+</div>
+
+<h2 id="gears">The gears beneath this lesson</h2>
+<ul>
+  <li><strong>No Token Has a Type</strong> → CoT and final-answer tokens are generated identically;
+    the difference is content/convention/training.</li>
+  <li><strong>The Frozen Past</strong> → causal-mask invariance: appending never alters prior tokens
+    (the same guarantee that makes the KV cache correct); the pass is deterministic but for sampling.</li>
+  <li><strong>The Pinned Note</strong> → emitting an intermediate result persists it from the finite
+    internal scratchpad into the durable token stream, buying serial compute + external memory.</li>
+  <li><strong>Forward-Only Influence</strong> → an appended token shapes later tokens but never
+    earlier ones.</li>
+</ul>
+
+<div class="ask">
+  This one's close to your daily work — if you want to connect it to a specific pattern you use
+  (scratchpads, tool-call planning, "reflect then answer"), <strong>ask</strong> and we'll map it
+  onto the mechanism.
+</div>
+
+<h3 id="source">Read next</h3>
+<p>For the empirical case that emitted tokens add real computation:
+the "chain-of-thought prompting" and "scratchpad" line of work (Wei et al., 2022; Nye et al., 2021).
+For the determinism/causal-mask foundation, revisit
+<a href="0002-the-hosts-evening.html">the Threshold Rule in Lesson 2</a> and
+<a href="0003-the-ledger-of-you.html">the Ledger in Lesson 3</a>.</p>
+
+</main>
+
+<footer>
+  <div class="nav">
+    <span><a href="0004-the-reading-of-the-last-line.html">← Lesson 4 · The Reading of the Last Line</a></span>
+    <span><a href="../reference/glossary.html">Glossary →</a></span>
+  </div>
+  <p style="margin-top:1rem;">A side-lesson — applied, tied to your work building with LLMs and agents.</p>
+</footer>
+
+</body>
+</html>
