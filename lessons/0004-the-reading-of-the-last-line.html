@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 4 · The Reading of the Last Line</title>
+<link rel="stylesheet" href="../assets/lesson.css" />
+<script src="../assets/speech.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="breadcrumb">Transformers &amp; Attention · Lesson 4 of N</div>
+  <h1>The Reading of the Last Line</h1>
+  <p class="subtitle">How a stack of layers and a summit of numbers become an actual next word — with no spark, just a dot product and a dice roll.</p>
+</header>
+
+<main>
+
+<div class="keyidea">
+  <strong>The one idea:</strong> The whole context funnels up through the layers into a single
+  <em>summit</em> vector — the last token. To predict the next word, that one vector is weighed
+  against every word in a fixed dictionary. The layers did the hard part by <em>positioning</em> the
+  summit; the read-out is trivial.
+</div>
+
+<p>This lesson closes the loop opened in <a href="0003-the-ledger-of-you.html">Lesson 3</a>: a token
+ends its journey as a prediction. Here is exactly how that prediction is taken — and why it feels
+like lightning but isn't.</p>
+
+<div class="movement">Movement I · The ascending movements</div>
+
+<div class="artifact">
+  <span class="icon">🪜</span>
+  <span class="body">
+    <span class="name">The Ascending Movements</span>
+    <span class="maps">the layer hierarchy (emergent, not assigned)</span>
+    <span class="desc">The movements of the evening progress in rough character — but no one
+    <em>assigned</em> the progression. Engineers design only the <em>scaffold</em> (how many layers,
+    how wide) and the <em>single goal</em> (predict the next token). The division of labour
+    <em>self-organises</em> to serve that goal. The rough, fuzzy, overlapping ladder researchers
+    observe: <strong>form → structure → meaning → prediction.</strong></span>
+  </span>
+</div>
+
+<ul>
+  <li><strong>Lowest rungs — "what is this, literally?"</strong> Token identity, morphology, part of
+    speech. Surface form.</li>
+  <li><strong>Lower-middle — "how do these attach?"</strong> Syntax: phrases, what modifies what,
+    agreement.</li>
+  <li><strong>Middle — "who did what to whom?"</strong> Semantic roles, coreference (resolving
+    <em>it</em>), entity tracking.</li>
+  <li><strong>Upper-middle — "what does this mean, in context?"</strong> Broad semantics, recalled
+    facts, tone, intent.</li>
+  <li><strong>Top — "so what comes next?"</strong> Abstract, prediction-shaped. The representation
+    turns from <em>what I am</em> toward <em>what follows.</em></li>
+</ul>
+
+<div class="note">Design lives at the level of <em>structure and objective</em>; the ladder itself
+is <em>grown</em> by training, not authored. And it's a smear, not a staircase — information is
+sometimes built and later discarded.</div>
+
+<div class="movement">Movement II · The summit holds the whole window</div>
+
+<div class="artifact">
+  <span class="icon">🏔️</span>
+  <span class="body">
+    <span class="name">The Summit</span>
+    <span class="maps">the final position already contains the context</span>
+    <span class="desc">Say 500 tokens fill the window. To predict the next word the model uses
+    <em>one</em> vector — the last token's — <em>not</em> all 500, and <em>not</em> a fresh sum over
+    them. The paradox dissolves once you see <em>when</em> the aggregation happened: at every layer,
+    the last position reached back over all 500 and pulled their blend into itself. The whole window
+    <em>funnelled upward</em> into the summit. By read-out time there is nothing left to aggregate —
+    the single summit vector <em>is</em> the distilled context.</span>
+  </span>
+</div>
+
+<p class="mono" style="text-align:center; font-size:0.95rem;">
+  500 contextualised tokens → (attention funnels them up, layer by layer) → <strong>1 summit
+  vector</strong> → read out
+</p>
+
+<div class="note">Why the <em>last</em> position? It's the only one allowed to see all 500 (the
+causal mask puts everything to its left). It is the most-informed point in the sequence — the natural
+place to ask "what next?"</div>
+
+<div class="movement">Movement III · The weighing against the dictionary</div>
+
+<div class="artifact">
+  <span class="icon">📖</span>
+  <span class="body">
+    <span class="name">The Dictionary of Signatures</span>
+    <span class="maps">the unembedding matrix</span>
+    <span class="desc">A table of ~50,000 <em>fixed</em> signatures — one per possible token, each a
+    list of numbers the same width as the summit. Frozen after training; identical regardless of
+    context. The summit is the one thing that changes; the dictionary is the constant it's read
+    against.</span>
+  </span>
+</div>
+
+<div class="artifact">
+  <span class="icon">⚖️</span>
+  <span class="body">
+    <span class="name">The Weighing</span>
+    <span class="maps">logits → softmax → probabilities</span>
+    <span class="desc">For each dictionary word, take <em>one dot product</em> against the summit:
+    <span class="mono">score(word) = summit · signature(word)</span>. The same resonance trick as
+    attention — alignment as relevance — now against the whole dictionary instead of the guests in
+    the room. "Dog food" gets exactly one number. Fifty thousand scores (<em>logits</em>) pass
+    through softmax and become a probability over every possible next word.</span>
+  </span>
+</div>
+
+<p>So the comparison is <strong>one context-soaked vector against 50,000 fixed signatures</strong> —
+not 50,000 words against 500 tokens. The 500 already did their work; they live inside the one. The
+layers' whole effort was to <em>position</em> the summit so that its nearest dictionary signatures
+are the plausible next words. The read-out is trivial; the genius was the positioning.</p>
+
+<div class="movement">Movement IV · How boldly to choose</div>
+
+<div class="artifact">
+  <span class="icon">🌡️</span>
+  <span class="body">
+    <span class="name">The Boldness Dial</span>
+    <span class="maps">temperature &amp; sampling</span>
+    <span class="desc">Before softmax, the scores can be scaled. <strong>Low temperature</strong>
+    sharpens toward the single likeliest word (confident, near-deterministic; at zero, just take the
+    top one). <strong>High temperature</strong> flattens the spread, handing probability to rarer
+    words ("creative"). Then one token is <em>drawn</em> from the distribution. (Cousins
+    <em>top-k</em> and <em>top-p</em> trim the candidate list first.) This dial is the only thing
+    deciding how boldly the model commits.</span>
+  </span>
+</div>
+
+<div class="movement">Movement V · The same door, read backwards</div>
+
+<div class="artifact">
+  <span class="icon">🔁</span>
+  <span class="body">
+    <span class="name">The Door, Read Backwards</span>
+    <span class="maps">weight tying + the autoregressive loop</span>
+    <span class="desc">The network is bookended by the <em>same table</em>. At the threshold, the
+    embedding table turned a <em>token into a vector</em> (a lookup). At the summit, that same table —
+    often literally the same weights, transposed — turns a <em>vector back into token scores</em>.
+    You enter through a door and leave through the same door read backwards. Then the chosen token is
+    appended and the whole pass runs again — predict one, append, predict the next. That loop, reusing
+    the cached past, <em>is</em> generation.</span>
+  </span>
+</div>
+
+<div class="keyidea">
+  <strong>Where's the lightning?</strong> There isn't any. The "animating spark" is just a dot
+  product against the dictionary, a softmax, and a dice roll. No threshold of life is crossed —
+  Frankenstein's monster doesn't get zapped alive; the body was assembled so precisely that measuring
+  it against a list of words lights up the right one.
+</div>
+
+<div class="mission">
+  This is the whole machine you work with, end to end: <strong>token → vector → (gather, recall,
+  accumulate) × N layers → summit → weigh against the dictionary → soften → sample → next token →
+  repeat.</strong> Every knob you touch as a practitioner lives somewhere on this path — context
+  length feeds the window, the prompt seeds the tokens, and temperature is the one dial at the very
+  end deciding boldness.
+</div>
+
+<h2 id="gears">The gears beneath this lesson</h2>
+<ul>
+  <li><strong>The Ascending Movements</strong> → the emergent layer hierarchy (form → structure →
+    meaning → prediction); designed objective, grown division of labour.</li>
+  <li><strong>The Summit</strong> → only the final position's vector is read out; attention already
+    funnelled the whole window into it.</li>
+  <li><strong>The Dictionary of Signatures</strong> → the (frozen) unembedding matrix, one signature
+    per vocabulary token.</li>
+  <li><strong>The Weighing</strong> → dot products give logits; softmax gives a probability over the
+    vocabulary.</li>
+  <li><strong>The Boldness Dial</strong> → temperature and sampling (top-k / top-p) choose how boldly
+    to commit.</li>
+  <li><strong>The Door, Read Backwards</strong> → weight tying (input embedding = output
+    unembedding), and the autoregressive generate-append-repeat loop.</li>
+</ul>
+
+<h2 id="next">Rooms still ahead</h2>
+<ul>
+  <li><strong>The Host's stewards</strong> → multi-head attention: many readers of the room at once,
+    each attuned to a different kind of resonance, their dance cards merged.</li>
+  <li><strong>How the Host learned his craft</strong> → training: how gradient descent wires all
+    these frozen weights in the first place.</li>
+</ul>
+
+<div class="ask">
+  That's the core forward pass, threshold to threshold, with no magic left in it. If any movement
+  needs another pass, <strong>ask</strong> — otherwise the next door is the Host's stewards.
+</div>
+
+<h3 id="source">Read / watch next (primary sources)</h3>
+<p>For the layer hierarchy: the probing work showing transformers recover a classical NLP pipeline
+(Tenney et al., "BERT Rediscovers the Classical NLP Pipeline"). For the read-out and sampling:
+<a href="https://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a> and its
+GPT-2 follow-up, and to watch logits and temperature live,
+<a href="https://poloclub.github.io/transformer-explainer/">Transformer Explainer</a>.</p>
+
+</main>
+
+<footer>
+  <div class="nav">
+    <span><a href="0003-the-ledger-of-you.html">← Lesson 3 · The Ledger of You</a></span>
+    <span><a href="../reference/glossary.html">Glossary →</a></span>
+  </div>
+  <p style="margin-top:1rem;">Tied to your mission: <em>the complete path from context to the next
+  token — how an LLM actually answers.</em></p>
+</footer>
+
+</body>
+</html>

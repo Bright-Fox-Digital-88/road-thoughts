@@ -101,8 +101,36 @@ directions, leaving notes later components pick up (composition). <em>Story:</em
 The packing of many features into overlapping directions of the same vector, so structure is real and
 linear but not axis-aligned (no "dimension 7 = noun"). Why the workspace is hard to read.</p>
 
-<div class="note">Still to be added as you master them: unembedding, temperature, multi-head
-attention, positional encoding.</div>
+<h2 id="readout">Read-out (token to token)</h2>
+
+<p><strong>Unembedding</strong><br/>
+The final projection that turns the summit vector into one score per vocabulary token, by dot product
+against a table of fixed token signatures. Often the input embedding table, transposed (weight
+tying). <em>Story:</em> the Dictionary of Signatures + the Door Read Backwards.</p>
+
+<p><strong>Logits</strong><br/>
+The raw, un-normalised scores — one per vocabulary token — produced by the unembedding, before
+softmax. <em>Story:</em> the Weighing.</p>
+
+<p><strong>Summit</strong><br/>
+Workspace shorthand for the final position's vector, which (via attention up the layers) already
+holds a distillation of the whole context window. The only vector read out at generation time.</p>
+
+<p><strong>Temperature</strong><br/>
+A scaling of the logits before softmax that sets boldness: low → sharp/near-deterministic, high →
+flat/varied. <em>Story:</em> the Boldness Dial. <em>Avoid</em>: randomness, creativity (it tunes
+them, it isn't them).</p>
+
+<p><strong>Sampling</strong><br/>
+Drawing the next token from the softmax distribution. <strong>Greedy</strong> = take the top one;
+<strong>top-k / top-p</strong> = restrict to the most probable candidates first.</p>
+
+<p><strong>Autoregressive loop</strong><br/>
+Generate one token, append it, run the pass again (reusing the KV cache) to generate the next.
+<em>Story:</em> the Door Read Backwards.</p>
+
+<div class="note">Still to be added as you master them: multi-head attention, positional encoding,
+training / gradient descent.</div>
 </main>
 
 <footer>
