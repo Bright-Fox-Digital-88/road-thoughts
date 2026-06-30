@@ -76,8 +76,33 @@ generated token isn't recomputed from scratch. Valid <em>because</em> of the cau
 <strong>Prefill</strong>: pushing the whole prompt through all layers in parallel (the expensive,
 quadratic part). <strong>Decode</strong>: generating one token at a time, reusing the KV cache.</p>
 
-<div class="note">Still to be added as you master them: multi-head attention, temperature,
-positional encoding, residual stream.</div>
+<h2 id="state">State &amp; representation</h2>
+
+<p><strong>Residual stream</strong><br/>
+The single fixed-length vector that <em>is</em> a token at any moment — the only persistent state.
+Every layer <em>adds</em> into it; nothing overwrites it. Serves as both a store of accumulated
+meaning and a shared scratchpad. <em>Story:</em> the Ledger of You. <em>Avoid</em>: the token's state,
+the hidden vector (use these loosely, but prefer "residual stream").</p>
+
+<p><strong>Residual connection</strong><br/>
+The rule that each block's output is <em>added</em> to its input rather than replacing it
+(<span class="mono">x + update</span>). What makes identity continuous and the original token a
+fading echo. <em>Story:</em> the Rule of the Ledger.</p>
+
+<p><strong>Erasure (additive)</strong><br/>
+Suppressing information by adding a vector that cancels an existing one — possible because numbers can
+be negative. A trained reflex, not a runtime decision. <em>Story:</em> the Cancelling Line.</p>
+
+<p><strong>Communication channel / workspace</strong><br/>
+The view of the residual stream as a message bus: each component reads from and writes to particular
+directions, leaving notes later components pick up (composition). <em>Story:</em> the Margin Notes.</p>
+
+<p><strong>Superposition</strong><br/>
+The packing of many features into overlapping directions of the same vector, so structure is real and
+linear but not axis-aligned (no "dimension 7 = noun"). Why the workspace is hard to read.</p>
+
+<div class="note">Still to be added as you master them: unembedding, temperature, multi-head
+attention, positional encoding.</div>
 </main>
 
 <footer>

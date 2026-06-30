@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 3 · The Ledger of You</title>
+<link rel="stylesheet" href="../assets/lesson.css" />
+<script src="../assets/speech.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="breadcrumb">Transformers &amp; Attention · Lesson 3 of N</div>
+  <h1>The Ledger of You</h1>
+  <p class="subtitle">What the token actually <em>is</em> — one list of numbers, written into by every room, that starts as a name and ends as a guess.</p>
+</header>
+
+<main>
+
+<div class="keyidea">
+  <strong>The one idea:</strong> A token is not a word travelling through the network. It is a
+  single fixed-length <em>list of numbers</em> — the <strong>residual stream</strong> — that every
+  layer <em>adds into</em>. It is at once a <em>store of gradual truth</em> (the meaning you've
+  become) and a <em>scratchpad</em> (working notes the rooms leave for each other). Same numbers,
+  both jobs.
+</div>
+
+<p>This lesson answers the question that's been lurking under
+<a href="0002-the-hosts-evening.html">the Evening</a>: when your cards get spent and "something
+changes," <em>what</em> changes, and in what format? The answer dissolves the sense of amorphous,
+hidden state — there is exactly one thing being passed, and it's concrete.</p>
+
+<div class="movement">Movement I · There is only one thing, and it is a list of numbers</div>
+
+<div class="artifact">
+  <span class="icon">📒</span>
+  <span class="body">
+    <span class="name">The Ledger of You</span>
+    <span class="maps">the residual stream</span>
+    <span class="desc">At every moment you are a single page: a fixed-length list of numbers —
+    768 of them in a small model, thousands in a large one. That length <em>never changes</em>, layer
+    to layer. This page is the <em>only</em> state. There is no shadow file, no second store. Every
+    card, every judgement, every recalled fact is computed <em>from</em> this page and folded back
+    <em>into</em> it.</span>
+  </span>
+</div>
+
+<p>So when the Host reads you to mint new cards, what is he reading? This page. When "something
+changes," what changes? The <em>numbers on this page</em> — same 768 slots, new values:</p>
+
+<p class="mono" style="text-align:center; font-size:0.95rem;">
+  you&nbsp;=&nbsp;[ 0.21, −1.07, 0.04, 0.88, … ] &nbsp;→&nbsp; [ 0.31, −0.77, −0.16, 0.95, … ]
+</p>
+
+<div class="movement">Movement II · The Ledger is written only by addition</div>
+
+<div class="artifact">
+  <span class="icon">➕</span>
+  <span class="body">
+    <span class="name">The Rule of the Ledger</span>
+    <span class="maps">the residual connection</span>
+    <span class="desc">No room ever crosses out the page and rewrites it. Each room only ever
+    <em>adds a new line</em>: <span class="mono">you_after = you_before + update</span>. Drinking the
+    Cup is adding the blend into the page. The Study's verdict is another line added. You are never
+    replaced — only accumulated. That is why you stay continuously <em>you</em> even as you deepen.</span>
+  </span>
+</div>
+
+<div class="artifact">
+  <span class="icon">✒️</span>
+  <span class="body">
+    <span class="name">The Cancelling Line</span>
+    <span class="maps">erasure via negative numbers</span>
+    <span class="desc">"Erasing" sounds mystical; it isn't. Because numbers can be negative, a room
+    can add a line that is the <em>opposite</em> of an earlier one, and the running total reads as if
+    the first were struck out. Add <span class="mono">−0.9</span> where a <span class="mono">+0.9</span>
+    sits, and the signal nets to zero. No one decides this in the moment — the reflex was trained into
+    the pen over ten thousand evenings, firing automatically when its pattern appears.</span>
+  </span>
+</div>
+
+<div class="movement">Movement III · The Study, fully opened</div>
+
+<p>The "mirror" was evasive. Here is what is really in that room — and it is only four moves, all
+performed on your page of numbers:</p>
+
+<ol class="steps">
+  <li><strong>Expand.</strong> Your ~768 numbers are unfolded into a much wider workspace — typically
+    4× wider, ~3,072 — so every specialist gets room to check its pattern.</li>
+  <li><strong>Fire selectively.</strong> Each of those ~3,072 units passes a simple non-linear gate.
+    Most go dark; a few stay lit. This gate is what lets a specialist stay <em>silent</em> until its
+    exact pattern shows up.</li>
+  <li><strong>Contract.</strong> The lit specialists' notes are folded back down to ~768.</li>
+  <li><strong>Add.</strong> That result is added into the Ledger (the Rule, again).</li>
+</ol>
+
+<div class="artifact">
+  <span class="icon">🗂️</span>
+  <span class="body">
+    <span class="name">The Three Thousand Specialists</span>
+    <span class="maps">the feed-forward network as associative memory</span>
+    <span class="desc">The Study's walls hold thousands of narrow experts, each trained to recognise
+    <em>one</em> pattern and carry <em>one</em> morsel of stored knowledge. "Past-tense verb after a
+    subject." "Second half of a famous name." "Something about Paris, the capital." You present your
+    current self to all of them at once; the handful whose pattern matches light up and hand you
+    their notes; the rest stay dark. This is where a huge share of the model's <em>knowledge</em>
+    actually lives. Attention <em>moved</em> information between tokens; the Study <em>recalls</em>
+    knowledge into one token, alone.</span>
+  </span>
+</div>
+
+<div class="note">The division of labour, made sharp: <strong>Attention = communication</strong>
+(gather and mix across tokens). <strong>Feed-forward = recall</strong> (consult a vast private
+library and write what's relevant into yourself). Both end the same way: a list of numbers added
+into your page.</div>
+
+<div class="movement">Movement IV · The Ledger is also a chalkboard</div>
+
+<div class="artifact">
+  <span class="icon">🏷️</span>
+  <span class="body">
+    <span class="name">The Margin Notes</span>
+    <span class="maps">the residual stream as a shared workspace</span>
+    <span class="desc">Rooms don't only record who you've become — they leave working notes for
+    <em>each other</em>. An early steward scrawls <em>"the subject tonight is plural"</em> into a
+    corner of the page; a later steward, needing exactly that, reads it and bends the coming verb to
+    "are." Each component <em>writes to</em> certain directions and <em>reads from</em> others — so
+    the page is a message bus, not just a diary. Some lines are durable truth; some are sticky-notes
+    meant to be read once and struck out. There is only <em>one</em> Ledger, and it serves as diary
+    and chalkboard at once.</span>
+  </span>
+</div>
+
+<p>This dual use is exactly why reading a model's mind is hard: durable meaning and throwaway scratch
+share the same finite page, packed into overlapping directions. Researchers reverse-engineering
+"circuits" are, in effect, working out <em>which margins hold which scratch variables, and which
+rooms write and read them.</em></p>
+
+<div class="movement">Movement V · By the last page, you are a guess</div>
+
+<div class="artifact">
+  <span class="icon">🔮</span>
+  <span class="body">
+    <span class="name">The Last Line</span>
+    <span class="maps">the representation becomes a prediction</span>
+    <span class="desc">Your page drifts with every room — not randomly, but <em>toward a
+    destination</em>. Bottom layers: <em>"I am the token bank."</em> Middle: <em>"I am bank, the river
+    kind, subject of this clause."</em> Top: <em>"…and the next word is probably flooded."</em> You
+    begin as <em>what you are</em> and end as <em>what you imply comes next.</em> By the final page
+    you've stopped describing yourself and become a <strong>prediction</strong>.</span>
+  </span>
+</div>
+
+<p>This is why grabbing the original token back out of a deep page is so hard. The change is one-way
+by <em>burial and repurposing</em>, not clean overwrite — so a faint echo of who-you-arrived-as
+lingers in the early pages (the Rule only ever <em>added</em> to you), while the late pages have been
+repurposed into prophecy. <em>(How that final page is read out into an actual next word — the
+unembedding — is the next room.)</em></p>
+
+<div class="mission">
+  For your work: this is why "which layer" matters when you pull vectors out of a model for search or
+  similarity. Early pages carry lexical/surface signal; middle pages carry the richest contextual
+  <em>meaning</em>; the last page is contaminated with next-token prediction and is often <em>not</em>
+  the best for similarity. And the finite width of the page is <em>why chain-of-thought works</em> —
+  telling a model to "think step by step" hands it a bigger, external scratchpad (tokens) when its
+  internal page runs out of room.
+</div>
+
+<h2 id="gears">The gears beneath this lesson</h2>
+<ul>
+  <li><strong>The Ledger of You</strong> → the residual stream: one fixed-length vector, the only
+    persistent state.</li>
+  <li><strong>The Rule of the Ledger</strong> → the residual connection (every update is
+    <em>added</em>, never overwritten).</li>
+  <li><strong>The Cancelling Line</strong> → "erasure" = adding a negative-pointing vector; a trained
+    reflex, not a runtime choice.</li>
+  <li><strong>The Three Thousand Specialists</strong> → the feed-forward network: expand → fire →
+    contract → add; an associative memory holding much of the model's knowledge.</li>
+  <li><strong>The Margin Notes</strong> → the residual stream as a shared communication
+    channel/workspace; components write and read subspaces, passing messages (composition).</li>
+  <li><strong>The Last Line</strong> → the representation transforming from "the token" into a
+    prediction of the next token.</li>
+</ul>
+
+<h2 id="next">Rooms still ahead</h2>
+<ul>
+  <li><strong>The Reading of the Last Line</strong> → the <em>unembedding</em>: how the final page
+    becomes a probability over the whole vocabulary, and how one next word is chosen (this is where
+    <em>temperature</em> lives).</li>
+  <li><strong>The Host's stewards</strong> → multi-head attention: many readers of the room at once,
+    each attuned to a different kind of resonance.</li>
+</ul>
+
+<div class="ask">
+  If any artifact didn't quite map — especially the Ledger being <em>both</em> diary and chalkboard —
+  <strong>ask</strong>, and we'll sit with it before opening the next room.
+</div>
+
+<h3 id="source">Read next (primary sources)</h3>
+<p>For the residual stream as a communication channel and the feed-forward layers as memory:
+Anthropic's <a href="https://transformer-circuits.pub/2021/framework/index.html">A Mathematical
+Framework for Transformer Circuits</a> (advanced, but the source of this framing). Gentler:
+<a href="https://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a>, and to
+watch the layers evolve a real token, <a href="https://poloclub.github.io/transformer-explainer/">Transformer
+Explainer</a>.</p>
+
+</main>
+
+<footer>
+  <div class="nav">
+    <span><a href="0002-the-hosts-evening.html">← Lesson 2 · The Host's Evening</a></span>
+    <span><a href="../reference/glossary.html">Glossary →</a></span>
+  </div>
+  <p style="margin-top:1rem;">Tied to your mission: <em>what context actually <strong>is</strong>,
+  as data, inside the model.</em></p>
+</footer>
+
+</body>
+</html>
