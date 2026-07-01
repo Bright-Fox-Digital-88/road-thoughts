@@ -156,6 +156,21 @@ prompting and format-following work. <em>Story:</em> the Two Stewards Who Learn 
 The model adapting to patterns in the prompt (examples, formats) without any weight change, largely
 via induction heads. <em>Avoid</em>: the model "learning" from your prompt (no training occurs).</p>
 
+<h2 id="applied">Applied (context &amp; chat)</h2>
+
+<p><strong>Chat template / role tokens</strong><br/>
+Special marker tokens (system / user / assistant) plus fine-tuning that teach a uniform mechanism to
+treat text by role. The user/assistant distinction is convention, not different machinery.
+<em>Story:</em> One Uniform, Many Costumes.</p>
+
+<p><strong>Attention dilution</strong><br/>
+Because each token's attention sums to one, more competing tokens give each a thinner average share —
+a key reason long contexts degrade. <em>Story:</em> the Finite Heart.</p>
+
+<p><strong>Lost in the middle</strong><br/>
+The empirical bias by which models attend well to the start and end of a long context and neglect the
+middle. <em>Story:</em> Lost in the Middle.</p>
+
 <div class="note">Still to be added as you master them: positional encoding, training / gradient
 descent.</div>
 </main>

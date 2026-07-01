@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 7 · The Crowded Room</title>
+<link rel="stylesheet" href="../assets/lesson.css" />
+<script src="../assets/speech.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="breadcrumb">Transformers &amp; Attention · Side-lesson (applied)</div>
+  <h1>The Crowded Room</h1>
+  <p class="subtitle">Who sets the board, and why the party gets less clever as it fills up.</p>
+</header>
+
+<main>
+
+<div class="keyidea">
+  <strong>The one idea:</strong> User and system tokens are the <em>fixed board position</em> you set
+  by hand; the model only plays from there — which is why they're enormous leverage. And a fixed
+  attention budget spread across a crowded room is why long contexts dilute, neglect the middle, and
+  fall into loops.
+</div>
+
+<p>An applied lesson, straight for your work building with LLMs and agents — built entirely from
+mechanics you already have: prefill vs decode, the finite dance card, the frozen past, and induction
+heads.</p>
+
+<div class="movement">Movement I · Who sets the board</div>
+
+<div class="artifact">
+  <span class="icon">🎬</span>
+  <span class="body">
+    <span class="name">Setting the Board</span>
+    <span class="maps">user/system tokens are prefilled, not generated</span>
+    <span class="desc">User and system tokens are <em>read in</em> (prefill) — run through the layers
+    to build their representations — but the model doesn't <em>sample</em> at those positions. Sampling
+    begins only at the assistant's turn. So the prompt is the board position you set by hand; the
+    model then plays every move from there. You place the stones; it responds.</span>
+  </span>
+</div>
+
+<div class="artifact">
+  <span class="icon">🎭</span>
+  <span class="body">
+    <span class="name">One Uniform, Many Costumes</span>
+    <span class="maps">the role distinction is a learned convention</span>
+    <span class="desc">Mechanically there is <em>no</em> difference in how user vs assistant tokens are
+    processed — same layers, same attention. The distinction is a costume: special role-marker tokens
+    (the chat template) plus fine-tuning taught the model "text after the <em>user</em> marker is
+    instruction; after the <em>assistant</em> marker is my own voice to continue." A convention painted
+    onto a uniform machine.</span>
+  </span>
+</div>
+
+<div class="movement">Movement II · Why the prompt is such high leverage</div>
+
+<p>Three reasons, all mechanical:</p>
+<ul>
+  <li><strong>Upstream of everything.</strong> By the frozen-past/causal structure, <em>every</em>
+    generated token attends back to the prompt. The system prompt, sitting at the very start, is in the
+    left-context of <em>literally every</em> token — maximal reach.</li>
+  <li><strong>Noise-free anchors.</strong> The prompt isn't sampled — it's exact. Generated tokens
+    carry sampling noise; your tokens don't.</li>
+  <li><strong>Few-shot examples get copied.</strong> Induction heads (Lesson 6) copy patterns from the
+    prompt directly — so demonstrations are leverage on top of leverage.</li>
+</ul>
+
+<div class="artifact">
+  <span class="icon">🎲</span>
+  <span class="body">
+    <span class="name">Deterministic Dynamics, One Die</span>
+    <span class="maps">deterministic pass + sampling; attractor basins</span>
+    <span class="desc">The forward pass is deterministic; the only randomness is the sampling die at
+    the readout. So runs <em>diverge</em> in exact words but usually <em>re-converge</em> in meaning —
+    the model's probability mass pulls trajectories back into the same attractor basin. Caveat: at a
+    genuine fork or high temperature, an early divergence can cascade into a wholly different response.
+    Usually convergent, occasionally chaotic.</span>
+  </span>
+</div>
+
+<div class="mission">
+  The practical rule: <strong>you set the board; the model plays.</strong> Editing the prompt
+  propagates to the entire downstream trajectory; editing a late generated token changes little. That
+  asymmetry is <em>why</em> prompt and system-message design is the highest-leverage knob you hold.
+</div>
+
+<div class="movement">Movement III · Why the crowded room gets less clever</div>
+
+<p>As context fills, quality tends to decline (a rough rule of thumb, not a law — it varies by model
+and task, and long-context models soften it). It's not one cause but four, and you can read each off
+the mechanics:</p>
+
+<div class="artifact">
+  <span class="icon">👥</span>
+  <span class="body">
+    <span class="name">The Finite Heart</span>
+    <span class="maps">attention dilution</span>
+    <span class="desc">Every steward's dance card still sums to <em>one</em>. With a handful of guests,
+    the relevant few get deep pours. With hundreds of thousands, that same fixed heart spreads thin —
+    the signal you care about competes with a throng of distractors, and softmax dilutes it. A fixed
+    attention budget, ever more claimants.</span>
+  </span>
+</div>
+
+<div class="artifact">
+  <span class="icon">🕳️</span>
+  <span class="body">
+    <span class="name">Lost in the Middle</span>
+    <span class="maps">positional attention bias</span>
+    <span class="desc">Models empirically privilege the <em>start</em> (which set the tone) and the
+    <em>most recent</em> guests (freshest), and under-attend the vast middle. Bury a key fact at the
+    midpoint of a long context and it whispers from the back of the hall.</span>
+  </span>
+</div>
+
+<div class="artifact">
+  <span class="icon">📏</span>
+  <span class="body">
+    <span class="name">A Room Bigger Than Rehearsal</span>
+    <span class="maps">long context is out-of-distribution</span>
+    <span class="desc">Training saw mostly shorter sequences. Pack in far more guests than the party
+    ever rehearsed with and the Host's seating sense (positional encoding) degrades at the far edges —
+    the machinery is simply less practised out there.</span>
+  </span>
+</div>
+
+<div class="artifact">
+  <span class="icon">🔁</span>
+  <span class="body">
+    <span class="name">The Echo That Feeds Itself</span>
+    <span class="maps">induction-head looping</span>
+    <span class="desc">The elegant failure. The very stewards that make the model clever at following
+    patterns — induction heads, which <em>find the earlier occurrence and copy what followed</em> —
+    will, once the recent output turns repetitive, see the repetition and copy it <em>again</em>,
+    reinforcing the loop. And as context fills with the model's <em>own</em> tokens, it's increasingly
+    conditioned on itself — an echo chamber drifting from the original instruction.</span>
+  </span>
+</div>
+
+<div class="mission">
+  Upshots you can act on today:
+  <ul style="margin:0.4rem 0 0;">
+    <li>Put crucial content <strong>early or late</strong>, never buried in the middle of a long
+      context.</li>
+    <li>Keep contexts <strong>lean</strong> — every irrelevant token is a distractor stealing from a
+      fixed attention budget.</li>
+    <li>Beware feeding the model <strong>long stretches of its own repetitive output</strong>; it
+      feeds the echo.</li>
+    <li>Invest in the <strong>system/user message</strong> — it's upstream of, and attended by,
+      everything.</li>
+  </ul>
+</div>
+
+<h2 id="gears">The gears beneath this lesson</h2>
+<ul>
+  <li><strong>Setting the Board</strong> → user/system tokens are prefilled, not sampled; generation
+    starts at the assistant turn.</li>
+  <li><strong>One Uniform, Many Costumes</strong> → the role distinction is chat-template tokens +
+    fine-tuning, over a uniform mechanism.</li>
+  <li><strong>High leverage</strong> → the prompt is upstream (maximal attention reach), noise-free,
+    and copied by induction heads.</li>
+  <li><strong>Deterministic Dynamics, One Die</strong> → deterministic pass + sampling → divergent
+    words, usually convergent meaning (occasionally chaotic).</li>
+  <li><strong>The four crowd effects</strong> → attention dilution, lost-in-the-middle, out-of-
+    distribution length, and self-reinforcing induction-head loops.</li>
+</ul>
+
+<div class="ask">
+  Want to map any of this onto a concrete pattern you use — RAG chunk placement, agent scratchpads,
+  context pruning, few-shot ordering? <strong>Ask</strong> and we'll trace it through the mechanics.
+</div>
+
+<h3 id="source">Read next</h3>
+<p>On position bias: Liu et al., "Lost in the Middle: How Language Models Use Long Contexts." On
+induction and copying: <a href="https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html">In-context
+Learning and Induction Heads</a>. Foundations: revisit
+<a href="0002-the-hosts-evening.html">the Threshold Rule (Lesson 2)</a> and
+<a href="0006-the-hosts-stewards.html">the Stewards (Lesson 6)</a>.</p>
+
+</main>
+
+<footer>
+  <div class="nav">
+    <span><a href="0006-the-hosts-stewards.html">← Lesson 6 · The Host's Stewards</a></span>
+    <span><a href="../reference/glossary.html">Glossary →</a></span>
+  </div>
+  <p style="margin-top:1rem;">A side-lesson — applied, tied to your work building with LLMs and agents.</p>
+</footer>
+
+</body>
+</html>
