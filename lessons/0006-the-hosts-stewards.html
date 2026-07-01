@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 6 · The Host's Stewards</title>
+<link rel="stylesheet" href="../assets/lesson.css" />
+<script src="../assets/speech.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="breadcrumb">Transformers &amp; Attention · Lesson 6 of N</div>
+  <h1>The Host's Stewards</h1>
+  <p class="subtitle">Multi-head attention — the Host was never one reader, but a council. And one pair of stewards explains why prompting works at all.</p>
+</header>
+
+<main>
+
+<div class="keyidea">
+  <strong>The one idea:</strong> A single attention can form only <em>one</em> notion of relevance at
+  a time. Real understanding needs several at once — so the Host is split into parallel
+  <strong>stewards (heads)</strong>, each reading the room through a different kind of resonance, their
+  dance cards merged at the end. Some of these stewards are the mechanism behind <em>in-context
+  learning.</em>
+</div>
+
+<p>This lesson corrects the one simplification the <a href="0002-the-hosts-evening.html">Evening</a>
+made: that the Host inks a single dance card. He never did. Seeing why completes the attention
+picture — no simplifications left.</p>
+
+<div class="movement">Movement I · Why one reader was never enough</div>
+
+<p>Your token often needs to attend to different things <em>for different reasons at the same
+moment</em>: the <em>subject</em> (to get agreement right), the <em>adjective</em> (for meaning), the
+noun a <em>pronoun</em> refers to (for sense). A single dance card can only express one distribution
+of attention — force all those jobs onto it and they smear together and interfere.</p>
+
+<div class="artifact">
+  <span class="icon">👥</span>
+  <span class="body">
+    <span class="name">The Council of Stewards</span>
+    <span class="maps">the attention heads</span>
+    <span class="desc">So the Host doesn't read the room alone. He sends several stewards — 8, 12,
+    dozens — <em>in parallel</em>. Each carries its <em>own</em> Seeking, Calling, and Gift cards
+    (its own Q/K/V projections), and each inks its <em>own</em> dance card. One steward attends to
+    grammatical subjects; another to the previous token; another to a pronoun's referent; another to
+    tone. Same room, several different kinds of resonance, read at once.</span>
+  </span>
+</div>
+
+<div class="note">The elegant part: it's nearly <strong>free</strong>. The token's numbers are
+<em>divided</em> among the stewards — with 12 heads, each works in a slice 1/12 as wide — so all of
+them together cost about the same as one full-width reader. You buy diversity by <em>partitioning</em>,
+not by adding bulk.</div>
+
+<div class="movement">Movement II · The stewards are real, named, and caught in the act</div>
+
+<p>These aren't hypothetical. Interpretability researchers have reverse-engineered specific stewards
+in real models and given them names:</p>
+
+<ul>
+  <li><strong>Previous-token stewards</strong> — attend to the token just before, copying its
+    signal forward.</li>
+  <li><strong>Syntactic stewards</strong> — link subjects to verbs, determiners to their nouns.</li>
+  <li><strong>Name-mover stewards</strong> — carry the right name to where it's needed (found inside
+    the famous "indirect object" circuit).</li>
+</ul>
+
+<div class="artifact">
+  <span class="icon">🔁</span>
+  <span class="body">
+    <span class="name">The Two Stewards Who Learn On The Fly</span>
+    <span class="maps">induction heads → in-context learning</span>
+    <span class="desc">The crown jewel. A pair of stewards works together: one notes "this token
+    appeared before — here's what followed it last time"; the other says "so predict that again." In
+    effect: <em>find the earlier occurrence of the current pattern and copy what came next.</em> This
+    is the discovered mechanism behind <strong>in-context learning</strong> — why a model picks up
+    your format from two examples, completes a pattern it was never trained on, and "just gets it"
+    from the prompt. No weights change. Two stewards, reading the room, doing pattern-completion in
+    real time.</span>
+  </span>
+</div>
+
+<div class="mission">
+  This is the highest-leverage idea in the course for your work. When you write few-shot examples and
+  the model follows the pattern — that's <strong>induction heads</strong>. When an agent picks up a
+  tool-call format from one demonstration — induction heads. "In-context learning" isn't a vague
+  talent; it's a specific, named mechanism a couple of attention heads perform. Prompt design is,
+  in large part, <em>giving these stewards a pattern clear enough to copy.</em>
+</div>
+
+<div class="movement">Movement III · The chamberlain merges the cards</div>
+
+<div class="artifact">
+  <span class="icon">🎩</span>
+  <span class="body">
+    <span class="name">The Chamberlain</span>
+    <span class="maps">concatenation + the output projection</span>
+    <span class="desc">Each steward pours its own small cup from its own dance card. The chamberlain
+    gathers all those cups side by side (concatenation) and runs them through one final mixing
+    (a learned output projection) to produce the single blend you actually drink — back at full width,
+    ready to be added into your Ledger. Many parallel readings in; one merged update out.</span>
+  </span>
+</div>
+
+<div class="note">So the full shape of one attention step: split into H stewards → each does the
+score-scale-softmax-blend you already know, in its own slice → concatenate → project → add to the
+residual stream. Everything from Lessons 1–3 was <em>one steward's</em> view; this wraps the council
+around it.</div>
+
+<div class="movement">Movement IV · The state-view</div>
+
+<p>Now that you're watching the whole board rather than a single guest: each layer is a <em>council
+per position</em>, all positions in parallel, all stewards in parallel — an enormous fan of
+simultaneous readings, every one of them just score-soften-blend on a slice of numbers. The Host's
+apparent single wisdom is really a <em>crowd</em> of narrow specialists whose votes are merged. The
+depth (layers) stacks these councils; the width (heads) diversifies each one.</p>
+
+<h2 id="gears">The gears beneath this lesson</h2>
+<ul>
+  <li><strong>The Council of Stewards</strong> → attention heads: H parallel attentions per layer,
+    each with its own Q/K/V in a 1/H-width slice; near-free because the dimensions are partitioned.</li>
+  <li><strong>Named stewards</strong> → discovered specialized heads (previous-token, syntactic,
+    name-mover).</li>
+  <li><strong>The Two Stewards Who Learn On The Fly</strong> → induction heads: match the current
+    pattern to an earlier occurrence and copy what followed — the mechanism of in-context learning.</li>
+  <li><strong>The Chamberlain</strong> → concatenate the heads' outputs and apply a learned output
+    projection to produce the single merged update.</li>
+</ul>
+
+<h2 id="next">Rooms still ahead</h2>
+<ul>
+  <li><strong>How the Host learned his craft</strong> → training: how gradient descent wires every
+    frozen weight — including how the stewards found their specialties.</li>
+  <li><strong>Where each guest's seat comes from</strong> → positional encoding: how order is
+    injected, since attention alone is blind to it.</li>
+</ul>
+
+<div class="ask">
+  If you want to connect induction heads to a specific prompt pattern you rely on — few-shot,
+  format-following, in-context examples — <strong>ask</strong>, and we'll trace it steward by steward.
+</div>
+
+<h3 id="source">Read / watch next (primary sources)</h3>
+<p>On heads and induction: Anthropic's
+<a href="https://transformer-circuits.pub/2021/framework/index.html">A Mathematical Framework for
+Transformer Circuits</a> and
+<a href="https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html">In-context
+Learning and Induction Heads</a>. Gentler and visual:
+<a href="https://jalammar.github.io/illustrated-transformer/">The Illustrated Transformer</a>
+(the multi-head section), and
+<a href="https://poloclub.github.io/transformer-explainer/">Transformer Explainer</a> to watch
+several heads attend at once.</p>
+
+</main>
+
+<footer>
+  <div class="nav">
+    <span><a href="0005-the-pinned-note.html">← Lesson 5 · The Pinned Note</a></span>
+    <span><a href="../reference/glossary.html">Glossary →</a></span>
+  </div>
+  <p style="margin-top:1rem;">Tied to your mission: <em>the mechanism behind in-context learning —
+  why prompting works.</em></p>
+</footer>
+
+</body>
+</html>

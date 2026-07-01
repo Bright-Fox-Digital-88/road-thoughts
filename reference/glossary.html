@@ -135,8 +135,29 @@ gets its own full forward pass and becomes a durable, re-attendable record — e
 finite per-step compute and memory. Mechanically no different from any other token; the distinction
 is content/convention. <em>Story:</em> the Pinned Note.</p>
 
-<div class="note">Still to be added as you master them: multi-head attention, positional encoding,
-training / gradient descent.</div>
+<h2 id="heads">Multi-head attention</h2>
+
+<p><strong>Attention head</strong><br/>
+One of several parallel attentions in a layer, each with its own Q/K/V in a slice of the width
+(d_model / H). Each forms its own attention distribution over the same tokens. <em>Story:</em> a
+steward.</p>
+
+<p><strong>Multi-head attention</strong><br/>
+Splitting attention into H heads that run in parallel, then concatenating their outputs and applying a
+learned output projection to merge them. Lets the model track several kinds of relationship at once,
+nearly for free (the width is partitioned). <em>Story:</em> the Council + the Chamberlain.</p>
+
+<p><strong>Induction head</strong><br/>
+A head (working with a previous-token head) that finds an earlier occurrence of the current pattern
+and copies what followed it — the discovered mechanism behind in-context learning. Why few-shot
+prompting and format-following work. <em>Story:</em> the Two Stewards Who Learn On The Fly.</p>
+
+<p><strong>In-context learning</strong><br/>
+The model adapting to patterns in the prompt (examples, formats) without any weight change, largely
+via induction heads. <em>Avoid</em>: the model "learning" from your prompt (no training occurs).</p>
+
+<div class="note">Still to be added as you master them: positional encoding, training / gradient
+descent.</div>
 </main>
 
 <footer>
