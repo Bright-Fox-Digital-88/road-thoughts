@@ -187,8 +187,39 @@ The open question of whether symbols manipulated relationally (as in an LLM) car
 the human sense, given they are not grounded in sensory/embodied reference. Where human and AI
 cognition are hardest to compare.</p>
 
-<div class="note">Still to be added as you master them: positional encoding, training / gradient
-descent (backpropagation, loss).</div>
+<h2 id="training">Training</h2>
+
+<p><strong>Pretraining</strong><br/>
+The bulk phase: self-supervised next-token prediction over a giant corpus, where the meaning-space and
+knowledge are built. <em>Story:</em> the ten thousand evenings.</p>
+
+<p><strong>Loss (cross-entropy)</strong><br/>
+A measure of "surprise" — how little probability the model placed on the token that actually came next.
+Training minimises it. <em>Story:</em> the Measure of Surprise.</p>
+
+<p><strong>Backpropagation</strong><br/>
+Computing, for every weight, how much it contributed to the loss and which way to change it — the
+credit/blame assignment run backward through the network. <em>Story:</em> the Accountant.</p>
+
+<p><strong>Gradient descent</strong><br/>
+Nudging every weight a small step (the learning rate) in the direction that reduces the loss. Tiny
+steps by design. <em>Story:</em> the Nudge.</p>
+
+<p><strong>Emergence</strong><br/>
+The appearance of meaning, grammar, and knowledge as byproducts of getting good at prediction — never
+a stated objective. <em>Story:</em> Structure Precipitates.</p>
+
+<p><strong>Fine-tuning / RLHF</strong><br/>
+Smaller post-training phases (instruction-tuning, preference-tuning) that shape behaviour and manners,
+not core knowledge. <em>Story:</em> Finishing School.</p>
+
+<p><strong>Frozen weights</strong><br/>
+After training, all weights are locked; the model does not learn from your prompts. In-context
+adaptation is induction heads reading the context, not the weights changing. <em>Story:</em> the Frozen
+Host.</p>
+
+<div class="note">Still to be added as you master them: positional encoding, the gradient (chain rule /
+loss landscape) in detail.</div>
 </main>
 
 <footer>

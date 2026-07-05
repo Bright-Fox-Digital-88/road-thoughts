@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lesson 9 · The Ten Thousand Evenings</title>
+<link rel="stylesheet" href="../assets/lesson.css" />
+<script src="../assets/speech.js" defer></script>
+</head>
+<body>
+<header>
+  <div class="breadcrumb">Transformers &amp; Attention · Lesson 9 of N</div>
+  <h1>The Ten Thousand Evenings</h1>
+  <p class="subtitle">How the Host learned his craft — where the meaning-space comes from, and how the diet that builds it is assembled.</p>
+</header>
+
+<main>
+
+<div class="keyidea">
+  <strong>The one idea:</strong> No one <em>designs</em> the meaning-space. It <em>sediments</em> out of
+  a trillion tiny corrections to one relentless game — <em>guess the next token, measure the surprise,
+  assign the blame, nudge every knob</em>. Understanding is the fossil left behind by getting very,
+  very good at prediction.</p>
+</div>
+
+<p>You've met the Host only at the <em>end</em> of his training — wise, unhurried, already able to
+translate your longing into the right cards. This lesson is his origin. It answers the question under
+all the others:
+<a href="0008-tokens-meaning-and-the-membrane.html">how does the meaning-space get built?</a></p>
+
+<div class="movement">Movement I · The blank Host</div>
+
+<div class="artifact">
+  <span class="icon">🕯️</span>
+  <span class="body">
+    <span class="name">The Blank Host</span>
+    <span class="maps">random initialization</span>
+    <span class="desc">On his first night he knows <em>nothing</em>. His card-templates are filled with
+    random ink; the coordinates on every Invitation are gibberish — "cat" and "philosophy" and "the"
+    scattered with no rhyme between them. The stewards have no specialties; the libraries are empty
+    shelves. The vast meaning-space is, on night one, <em>pure noise</em>.</span>
+  </span>
+</div>
+
+<div class="movement">Movement II · The game, and the measure of surprise</div>
+
+<div class="artifact">
+  <span class="icon">🚪</span>
+  <span class="body">
+    <span class="name">Guess Who Comes Next</span>
+    <span class="maps">the next-token objective, self-supervised</span>
+    <span class="desc">He is handed a real gathering — a true page torn from the world — and asked, at
+    <em>every moment</em>, to guess who walks through the door next. The genius of the schooling: the
+    door always opens and reveals the truth, so <em>reality itself is the answer key</em>. No tutor
+    needed to grade him — the next token is simply <em>there</em>. That's why he can practise on every
+    gathering ever recorded.</span>
+  </span>
+</div>
+
+<div class="artifact">
+  <span class="icon">😲</span>
+  <span class="body">
+    <span class="name">The Measure of Surprise</span>
+    <span class="maps">the loss (cross-entropy)</span>
+    <span class="desc">Each guess earns one number: <em>how startled was he by what actually came
+    next?</em> Expected the right guest with confidence — barely a flinch. Put his faith in the wrong
+    one — a jolt. Low surprise when he assigned high probability to the truth; high surprise when he
+    didn't. That single number is the entire report card.</span>
+  </span>
+</div>
+
+<div class="movement">Movement III · The accountant and the nudge</div>
+
+<div class="artifact">
+  <span class="icon">🧮</span>
+  <span class="body">
+    <span class="name">The Accountant Walking Backward</span>
+    <span class="maps">backpropagation</span>
+    <span class="desc">After each guess a meticulous accountant traces <em>backward</em> through every
+    decision that led to it — every template, every shelf-note, every coordinate — and works out, for
+    <em>each knob in the building</em>, a single verdict: "this choice made you more surprised; that
+    one made you less." Perfectly fair credit and blame, apportioned to millions (billions) of knobs at
+    once.</span>
+  </span>
+</div>
+
+<div class="artifact">
+  <span class="icon">🎚️</span>
+  <span class="body">
+    <span class="name">The Nudge</span>
+    <span class="maps">gradient descent</span>
+    <span class="desc">Then every knob is turned a <em>hair</em> in the direction that would have left
+    him less surprised. Not a lurch — a whisper (the step size, or "learning rate"). After one evening
+    he is very nearly the same fool he was that morning. The correction is tiny <em>on purpose</em>:
+    big jumps overshoot and thrash; small steps let structure settle.</span>
+  </span>
+</div>
+
+<div class="movement">Movement IV · Ten thousand evenings</div>
+
+<div class="artifact">
+  <span class="icon">⛰️</span>
+  <span class="body">
+    <span class="name">Structure Precipitates</span>
+    <span class="maps">scale &amp; emergence</span>
+    <span class="desc">He does this not once but for ten thousand — ten trillion — moments. And like a
+    canyon carved not by one flood but by a river that never stops, <em>structure precipitates out of
+    the noise</em>. Gibberish coordinates self-organise: guests who behave alike drift to neighbouring
+    positions, because that made him less surprised. Stewards find specialties; shelves fill with the
+    patterns of the world — grammar, fact, the rhythm of what follows what — because knowing them was
+    the only way to stop being startled.</span>
+  </span>
+</div>
+
+<div class="keyidea">
+  He never once tried to "understand." He only ever tried to be <strong>less surprised by the next
+  guest.</strong> Understanding was never the aim — it is the <em>fossil</em> left behind by ten
+  thousand evenings of prediction. <strong>Meaning is what precipitates when you get very good at
+  guessing what comes next.</strong> That is how the space you've explored got built: not authored,
+  but sedimented.
+</div>
+
+<div class="movement">Movement V · Assembling the diet</div>
+
+<p>The apprentice is only as good as the evenings he studies — so enormous, unglamorous effort goes
+into <em>assembling the diet</em> before a single nudge. The raw world becomes training batches through
+roughly these stages:</p>
+
+<ol class="steps">
+  <li><strong>Collect &amp; extract</strong> — gather raw material (web crawls, code, books) and pull
+    clean text from messy HTML/PDF.</li>
+  <li><strong>Quality-filter</strong> — discard spam, gibberish, wrong-language, and unsafe content.</li>
+  <li><strong>Deduplicate</strong> — remove exact and near-duplicate documents; dupes cause
+    memorisation and waste compute.</li>
+  <li><strong>Decontaminate</strong> — strip anything overlapping the evaluation benchmarks, so the
+    model isn't secretly tested on what it trained on.</li>
+  <li><strong>Mix &amp; weight</strong> — set the proportions of the recipe (below).</li>
+  <li><strong>Tokenize</strong> — run it all through the tokenizer; the corpus becomes a stream of
+    integer token IDs.</li>
+  <li><strong>Pack</strong> — fit the stream into fixed-length training sequences (below).</li>
+  <li><strong>Shuffle</strong> — randomise document order (below).</li>
+</ol>
+
+<div class="artifact">
+  <span class="icon">⚖️</span>
+  <span class="body">
+    <span class="name">Weighting the Diet</span>
+    <span class="maps">sampling proportions</span>
+    <span class="desc">"Upweighting" a source mostly means <em>sampling it more often</em> — drawing
+    code 3× more than its natural share, say. It's how much of the apprentice's diet is code-parties vs
+    novels vs forum-brawls. Downweighting by subsetting means part of a source may be <em>never seen at
+    all</em> — so it's partial exclusion, not just softer emphasis. Proportions are chosen by small-
+    scale ablations (train little models on different mixes, keep what scores best).</span>
+  </span>
+</div>
+
+<div class="artifact">
+  <span class="icon">🔀</span>
+  <span class="body">
+    <span class="name">The Shuffle</span>
+    <span class="maps">de-biasing, not disambiguation</span>
+    <span class="desc">Order <em>within</em> a document is sacred signal (kept); order <em>between</em>
+    documents is an accident of collection (noise). Shuffling erases the accident so each batch is a
+    fair miniature of the whole world — giving unbiased gradient steps, no recency bias or forgetting,
+    no learning of spurious streaks, and smoother descent. The bulk is shuffled to <em>cancel</em>
+    order-bias; the final "annealing" stretch deliberately <em>re-introduces</em> it, biasing the last
+    nights toward the highest-quality data.</span>
+  </span>
+</div>
+
+<div class="artifact">
+  <span class="icon">📦</span>
+  <span class="body">
+    <span class="name">Packing Without Snipping</span>
+    <span class="maps">document boundaries &amp; best-fit packing</span>
+    <span class="desc">Short documents are packed together to fill a sequence, separated by an
+    end-of-document token (and ideally masked apart so one can't attend to another). Documents longer
+    than the window must span — and attention never crosses a sequence boundary, so those pieces are
+    seen in isolation. To avoid needless mid-document cuts (which teach the model to fabricate
+    continuations from nothing), smart pipelines use <strong>best-fit packing</strong>: bin-pack so a
+    small remaining gap is filled by a document that <em>fits</em>, rather than snipping the top off a
+    long one. Fewer truncations measurably help — less hallucination, better coherence.</span>
+  </span>
+</div>
+
+<div class="movement">Movement VI · Finishing school, and the freezing</div>
+
+<div class="artifact">
+  <span class="icon">🎓</span>
+  <span class="body">
+    <span class="name">Finishing School</span>
+    <span class="maps">fine-tuning, instruction-tuning, RLHF</span>
+    <span class="desc">After the long apprenticeship, a short, mannered coda: kind tutors teach him
+    etiquette — how to take an instruction gracefully, when to speak as host and when to listen as a
+    guest (the role costumes), what tone tends to please (preference-tuning / RLHF). But this shapes his
+    <em>manners</em>, not his knowledge. The entire meaning-space was already sedimented in the ten
+    thousand evenings of raw prediction. Finishing school taught him how to <em>carry</em> his wisdom,
+    not how to <em>have</em> it.</span>
+  </span>
+</div>
+
+<div class="artifact">
+  <span class="icon">🧊</span>
+  <span class="body">
+    <span class="name">The Frozen Host</span>
+    <span class="maps">weights locked at inference</span>
+    <span class="desc">Then his schooling ends and every knob is <em>locked forever</em>. The wise
+    figure who took your hand at your party is an apprentice who has lived ten thousand lifetimes of
+    evenings and will never change again — identical for every guest, every gathering. That is why, at
+    inference, he is frozen; your conversation does not teach him. Learning happened once, in the
+    evenings; what you get is the finished man.</span>
+  </span>
+</div>
+
+<div class="mission">
+  This closes the biggest loop for your work. The model doesn't "learn" from your prompts — its weights
+  are frozen; what looks like learning in-context is the induction-head trick (Lesson 6) reading the
+  board you set, not the Host changing. Everything the model <em>knows</em> was fixed in training; every
+  <em>choice</em> at inference is that frozen knowledge, read out. Knowing where the line sits —
+  trained knowledge vs. in-context steering — is what lets you predict what a model can and can't do.
+</div>
+
+<h2 id="gears">The gears beneath the evening</h2>
+<ul>
+  <li><strong>The Blank Host</strong> → random initialization: weights and embeddings start as noise.</li>
+  <li><strong>Guess Who Comes Next</strong> → next-token prediction, self-supervised (the data is its
+    own answer key).</li>
+  <li><strong>The Measure of Surprise</strong> → the loss (cross-entropy): low when high probability was
+    placed on the truth.</li>
+  <li><strong>The Accountant</strong> → backpropagation: computing each weight's contribution to the
+    error.</li>
+  <li><strong>The Nudge</strong> → gradient descent: each weight stepped a little (the learning rate)
+    to reduce loss.</li>
+  <li><strong>Structure Precipitates</strong> → scale &amp; emergence: meaning appears as a byproduct of
+    prediction, never a stated goal.</li>
+  <li><strong>Weighting / Shuffle / Packing</strong> → the data pipeline: sampling proportions,
+    de-biasing order, and best-fit document packing.</li>
+  <li><strong>Finishing School</strong> → fine-tuning / instruction-tuning / RLHF: shapes behaviour, not
+    core knowledge.</li>
+  <li><strong>The Frozen Host</strong> → weights locked after training; identical at every inference.</li>
+</ul>
+
+<h2 id="next">Rooms still ahead</h2>
+<ul>
+  <li><strong>Where each guest's seat comes from</strong> → positional encoding: how order is injected,
+    since attention alone is order-blind (the Invitation's "position" we asserted but never explained).</li>
+  <li><strong>What a gradient really is</strong> → a deeper look at the accountant's arithmetic (the
+    chain rule, slopes in a loss landscape) for when you want the math under the metaphor.</li>
+</ul>
+
+<div class="ask">
+  If you want the accountant's method made concrete — <em>what a gradient actually is</em>, or why tiny
+  steps beat big leaps — <strong>ask</strong>, and we'll go under the metaphor.
+</div>
+
+<h3 id="source">Read / watch next</h3>
+<p>Foundational: the GPT papers (Radford et al.) on self-supervised pretraining; the Chinchilla paper
+(Hoffmann et al., 2022) on how much data vs. parameters. On data: "Fewer Truncations Improve Language
+Modeling" (2024) for best-fit packing. Gentle and visual:
+<a href="https://jalammar.github.io/illustrated-transformer/">Jay Alammar's</a> explainers, and
+<a href="https://poloclub.github.io/transformer-explainer/">Transformer Explainer</a>.</p>
+
+</main>
+
+<footer>
+  <div class="nav">
+    <span><a href="0008-tokens-meaning-and-the-membrane.html">← Lesson 8 · Tokens, Meaning &amp; the Membrane</a></span>
+    <span><a href="../reference/glossary.html">Glossary →</a></span>
+  </div>
+  <p style="margin-top:1rem;">Tied to your mission: <em>where the meaning-space comes from — and why the
+  model you use is already finished.</em></p>
+</footer>
+
+</body>
+</html>
