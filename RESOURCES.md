@@ -1,0 +1,48 @@
+# Human Brain (Attention, Meaning, Memory) Resources
+
+## Knowledge
+
+### Bridging human & machine (start here — matches the mission)
+- [Article: "Attention in Psychology, Neuroscience, and Machine Learning" — Grace W. Lindsay, *Frontiers in Computational Neuroscience* (2020)](https://www.frontiersin.org/journals/computational-neuroscience/articles/10.3389/fncom.2020.00029/full)
+  The single best source for this workspace. Reviews how attention is defined in
+  neuroscience/psychology, then maps it onto machine-learning attention, flagging where
+  biological and artificial counterparts do and don't line up. Use for: every lesson that
+  draws the LLM parallel.
+
+### Attention (Concept 1)
+- [Review: "The Attention System of the Human Brain: 20 Years After" — Petersen & Posner, *Annual Review of Neuroscience* (2012)](https://pmc.ncbi.nlm.nih.gov/articles/PMC3413263/)
+  The canonical three-networks model: alerting, orienting, executive control. Use for:
+  the vocabulary of what "attention" decomposes into.
+- [Concept: Biased competition — Desimone & Duncan (1995), summarized in Journal of Neuroscience work on the topic](https://www.jneurosci.org/content/38/10/2495)
+  The framework that attention = resolving competition between stimuli for limited
+  resources, with top-down signals biasing the winner. Use for: the core mechanism of
+  selection, and the sharpest contrast with LLM soft-attention.
+- [Overview: "Ventral Attention Network" — ScienceDirect Topics](https://www.sciencedirect.com/topics/medicine-and-dentistry/ventral-attention-network)
+  Dorsal (goal-directed, top-down) vs ventral (stimulus-driven, "circuit-breaker")
+  attention systems. Use for: the two-sources-of-control distinction.
+
+### Meaning (Concept 2)
+- [Review: "The neural and computational bases of semantic cognition" — Ralph, Jefferies, Patterson & Rogers, *Nature Reviews Neuroscience* (2017)](https://wiredbrains.org/wp-content/uploads/2023/07/Ralph-2016-Nature-Reviews-Neuroscience.pdf)
+  The hub-and-spoke model: modality-specific "spokes" (sight, sound, action, word) feed a
+  transmodal "hub" in the anterior temporal lobe that distills them into concepts. Use for:
+  how meaning is mechanically represented and why it's more than word-association.
+
+### Memory reactivation / "spinning up" (Concept 3)
+- [Paper: "Cycles of goal silencing and reactivation underlie complex problem-solving in primate frontal and parietal cortex" — *Nature Communications* (2023)](https://www.nature.com/articles/s41467-023-40676-1)
+  Direct neural evidence that an active goal representation is *silenced* to background and
+  later *reactivated* during multi-step problem solving. Use for: the mechanism behind the
+  hand-off / spin-back-up experience.
+- [Paper: "Reconciling persistent and dynamic hypotheses of working memory coding in prefrontal cortex" — *Nature Communications* (2018)](https://www.nature.com/articles/s41467-018-05873-3)
+  Working memory isn't only sustained firing; representations can go "activity-silent" and
+  be reconstituted. Use for: why a warmed-up state can fade yet be re-established.
+
+## Wisdom (Communities)
+- [r/neuro](https://reddit.com/r/neuro) and [r/cogsci](https://reddit.com/r/cogsci)
+  For testing framings and asking "did I understand this right?" — moderated, research-literate.
+- [Cognitive Neuroscience Society](https://www.cogneurosociety.org/) — for depth, once the
+  fundamentals are in place. (Proposed, not yet joined — see NOTES.)
+
+## Gaps
+- No single accessible book chosen yet for the memory/consolidation thread. If Concept 3
+  deepens, find a trusted popular-but-rigorous source (candidate: work by Daniel Schacter
+  on memory, or Earl Miller / Tim Buschman on working memory) and add it here.

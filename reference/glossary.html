@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Glossary · The Human Brain</title>
+<link rel="stylesheet" href="../assets/course.css">
+<style>
+  .term { margin: 1.6rem 0; padding-bottom: 1.3rem; border-bottom: 1px solid var(--rule); }
+  .term dt { font-family: var(--sans); font-weight: 600; font-size: 1.05rem; margin-bottom: 0.3rem; }
+  .term dd { margin: 0; }
+  .avoid { font-family: var(--sans); font-size: 0.8rem; color: var(--muted); margin-top: 0.4rem; }
+  .lens { font-family: var(--sans); font-size: 0.8rem; color: var(--dorsal); margin-top: 0.3rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <span>The Human Brain · Attention, Meaning, Memory</span>
+    <span>Reference · Glossary</span>
+  </div>
+
+  <h1>Glossary</h1>
+  <p class="subtitle">The canonical language for this course. Every lesson uses these terms;
+  the "vs. LLM" note fixes each one against the machine intuition you already have.</p>
+
+  <h2>Attention</h2>
+  <dl>
+    <div class="term">
+      <dt>Attention</dt>
+      <dd>The control of a limited processing resource by relevance — amplifying some information
+      and suppressing the rest. In humans this is a hard bottleneck; in an LLM it is soft weighting
+      over information that all remains present.
+      <div class="lens">vs. LLM: same "weight by relevance" idea, minus the scarcity.</div></dd>
+    </div>
+    <div class="term">
+      <dt>Biased competition</dt>
+      <dd>The mechanism of human attention: stimuli compete for scarce neural representation and
+      mutually suppress each other; a goal-driven bias signal raises the gain on the relevant one
+      so it wins.
+      <div class="avoid"><em>Avoid</em>: focusing, concentrating, paying attention</div></dd>
+    </div>
+    <div class="term">
+      <dt>Top-down bias (dorsal)</dt>
+      <dd>A voluntary, goal-driven signal — from the dorsal frontoparietal system — that tips the
+      competition toward what you intend to attend to. The closest analogue to a Transformer's query.
+      <div class="avoid"><em>Avoid</em>: willpower, effort, endogenous attention (alias, acceptable)</div></dd>
+    </div>
+    <div class="term">
+      <dt>Bottom-up interrupt (ventral)</dt>
+      <dd>An involuntary, stimulus-driven reorienting — the ventral system's "circuit breaker" —
+      that seizes attention toward salient or unexpected events, even against your goals. Has no
+      clean Transformer counterpart.
+      <div class="avoid"><em>Avoid</em>: distraction, exogenous attention (alias, acceptable)</div></dd>
+    </div>
+    <div class="term">
+      <dt>Gain</dt>
+      <dd>The strength/responsiveness applied to a neural representation. "Biasing the competition"
+      physically means turning gain up on the winner and down on the losers.
+      <div class="avoid"><em>Avoid</em>: volume, attention level</div></dd>
+    </div>
+  </dl>
+
+  <p class="ask">Terms are added here as you master them. Ask your teacher to add, sharpen, or
+  correct any entry.</p>
+
+  <div class="lesson-nav">
+    <a href="../lessons/0001-attention-as-selection.html">← Lesson 1</a>
+    <span>&nbsp;</span>
+  </div>
+
+</div>
+</body>
+</html>

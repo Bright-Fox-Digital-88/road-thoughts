@@ -1,0 +1,247 @@
+/* course.css — shared stylesheet for all lessons in this workspace.
+   Tufte-inspired: serif body, generous margins, restrained palette, print-friendly.
+   Every lesson links this so the course reads as one consistent whole. */
+
+:root {
+  --ink: #1a1a1a;
+  --paper: #fdfdfb;
+  --muted: #6b6b6b;
+  --rule: #dcdad2;
+  --accent: #7a2e2e;        /* deep brick red — for links & emphasis */
+  --accent-soft: #f3e9e6;
+  --dorsal: #2e5a7a;        /* top-down / goal-directed */
+  --ventral: #b5651d;       /* bottom-up / stimulus-driven */
+  --maxw: 44rem;
+  --serif: "Iowan Old Style", "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
+  --sans: "Inter", "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: var(--serif);
+  color: var(--ink);
+  background: var(--paper);
+  line-height: 1.55;
+  font-size: 1.15rem;
+  margin: 0;
+  padding: 4rem 1.5rem 6rem;
+}
+
+.wrap { max-width: var(--maxw); margin: 0 auto; }
+
+/* --- Course masthead --- */
+.masthead {
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.6rem;
+  margin-bottom: 2.5rem;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* --- Typography --- */
+h1 {
+  font-weight: 600;
+  font-size: 2.1rem;
+  line-height: 1.12;
+  letter-spacing: -0.01em;
+  margin: 0 0 0.4rem;
+}
+.subtitle {
+  font-style: italic;
+  color: var(--muted);
+  font-size: 1.2rem;
+  margin: 0 0 2.5rem;
+}
+h2 {
+  font-weight: 600;
+  font-size: 1.4rem;
+  margin: 2.8rem 0 0.8rem;
+  padding-top: 0.4rem;
+}
+h3 {
+  font-weight: 600;
+  font-size: 1.1rem;
+  font-family: var(--sans);
+  letter-spacing: 0.02em;
+  margin: 1.8rem 0 0.5rem;
+}
+p { margin: 0 0 1.1rem; }
+a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+a:hover { border-bottom-color: var(--accent); }
+strong { font-weight: 600; }
+em { font-style: italic; }
+
+/* Numbered citation superscripts */
+sup.cite { font-size: 0.66em; line-height: 0; }
+sup.cite a { border: none; font-family: var(--sans); }
+
+/* --- Callouts --- */
+.callout {
+  border-left: 3px solid var(--accent);
+  background: var(--accent-soft);
+  padding: 1rem 1.2rem;
+  margin: 1.8rem 0;
+  border-radius: 0 4px 4px 0;
+}
+.callout .label {
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  display: block;
+  margin-bottom: 0.35rem;
+}
+.callout p:last-child { margin-bottom: 0; }
+
+.parallel { border-left-color: var(--dorsal); background: #eef3f7; }
+.parallel .label { color: var(--dorsal); }
+.breaks   { border-left-color: var(--ventral); background: #f7efe6; }
+.breaks .label { color: var(--ventral); }
+
+/* --- The LLM ↔ brain comparison table --- */
+table.compare {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.98rem;
+  margin: 1.6rem 0;
+}
+table.compare th, table.compare td {
+  text-align: left;
+  padding: 0.6rem 0.7rem;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+}
+table.compare thead th {
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+table.compare tbody th {
+  font-weight: 600;
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  width: 28%;
+}
+
+/* --- Figure / diagram --- */
+figure { margin: 2rem 0; }
+figure svg { width: 100%; height: auto; display: block; }
+figcaption {
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 0.6rem;
+  line-height: 1.4;
+}
+
+/* --- Quiz widget (works with assets/quiz.js) --- */
+.quiz {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.3rem 1.4rem;
+  margin: 1.6rem 0;
+  background: #fff;
+}
+.quiz .q {
+  font-weight: 600;
+  margin-bottom: 0.9rem;
+}
+.quiz .opt {
+  display: block;
+  width: 100%;
+  text-align: left;
+  font: inherit;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  padding: 0.6rem 0.8rem;
+  margin: 0.45rem 0;
+  cursor: pointer;
+  transition: background 0.12s, border-color 0.12s;
+}
+.quiz .opt:hover { border-color: var(--muted); }
+.quiz .opt.correct { background: #e7f2e9; border-color: #4c9a5f; }
+.quiz .opt.wrong   { background: #f6e7e7; border-color: #b45454; }
+.quiz .opt:disabled { cursor: default; }
+.quiz .feedback {
+  font-size: 0.95rem;
+  margin-top: 0.8rem;
+  padding-top: 0.8rem;
+  border-top: 1px solid var(--rule);
+  display: none;
+}
+.quiz .feedback.show { display: block; }
+
+/* --- Footer nav --- */
+.lesson-nav {
+  margin-top: 3.5rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  justify-content: space-between;
+}
+.primary-source {
+  font-family: var(--sans);
+  font-size: 0.92rem;
+  background: #f4f2ec;
+  border-radius: 6px;
+  padding: 1rem 1.2rem;
+  margin: 2.5rem 0 0;
+}
+.primary-source .label {
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.ask {
+  font-family: var(--sans);
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: normal;
+  margin-top: 2.5rem;
+  text-align: center;
+}
+
+/* --- Dark mode (screen only) --- */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #e8e6e0; --paper: #17171a; --muted: #9a988f; --rule: #35343a;
+    --accent: #e0928a; --accent-soft: #2c2220;
+    --dorsal: #8fb8d6; --ventral: #e0a76a;
+  }
+  .parallel { background: #1b2530; }
+  .breaks { background: #2a2118; }
+  .quiz { background: #1e1e22; }
+  .quiz .opt { background: #17171a; }
+  .quiz .opt.correct { background: #1c2e22; }
+  .quiz .opt.wrong { background: #2e1c1c; }
+  .primary-source { background: #1e1e22; }
+}
+
+/* --- Print --- */
+@media print {
+  body { font-size: 11pt; padding: 0; background: #fff; color: #000; }
+  .quiz, .lesson-nav, .ask { display: none; }
+  a { color: #000; border: none; }
+  .callout, .primary-source { break-inside: avoid; }
+}
