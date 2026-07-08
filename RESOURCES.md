@@ -26,6 +26,12 @@
   The hub-and-spoke model: modality-specific "spokes" (sight, sound, action, word) feed a
   transmodal "hub" in the anterior temporal lobe that distills them into concepts. Use for:
   how meaning is mechanically represented and why it's more than word-association.
+- [Study: "Anterior temporal lobes mediate semantic representation: Mimicking semantic dementia by using rTMS" — Pobric, Jefferies & Lambon Ralph, *PNAS* (2007)](https://www.pnas.org/doi/10.1073/pnas.0707383104)
+  Experimental proof the ATL hub does semantic work in every healthy brain, not just patients.
+  Use for: the "how we know" evidence in the meaning lesson.
+- [Concept: The symbol grounding problem — Harnad (1990); overview via multimodal distributional semantics, *Frontiers in Psychology* (2022)](https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2022.906181/full)
+  Why symbols defined only by other symbols never touch the world. Use for: the precise,
+  mechanical version of "tokens as a barrier to meaning" — an embedding is a hub with no spokes.
 
 ### Memory reactivation / "spinning up" (Concept 3)
 - [Paper: "Cycles of goal silencing and reactivation underlie complex problem-solving in primate frontal and parietal cortex" — *Nature Communications* (2023)](https://www.nature.com/articles/s41467-023-40676-1)

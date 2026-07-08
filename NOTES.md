@@ -13,7 +13,7 @@
 ## Course arc (planned — three concepts from the opening request)
 1. **Attention** — biased competition, dorsal/ventral control. → Lesson 1 (done).
 2. **Meaning** — hub-and-spoke: distributed feature "spokes" + an ATL integrating hub. Sets up
-   a rich contrast with LLM distributed embeddings / the token-vs-meaning philosophy.
+   a rich contrast with LLM distributed embeddings / the token-vs-meaning philosophy. → Lesson 2 (done).
 3. **The spin-up / hand-off / spin-back-up cycle** — working-memory maintenance, goal silencing
    & reactivation, activity-silent states. The most personally-motivated concept; likely the
    emotional core of the mission. Save for when 1 & 2 give the vocabulary to explain it well.

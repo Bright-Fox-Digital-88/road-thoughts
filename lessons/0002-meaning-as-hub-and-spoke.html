@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lesson 2 · Meaning as Hub and Spoke</title>
+<link rel="stylesheet" href="../assets/course.css">
+</head>
+<body>
+<div class="wrap">
+
+  <div class="masthead">
+    <span>The Human Brain · Attention, Meaning, Memory</span>
+    <span>Lesson 2 of 3</span>
+  </div>
+
+  <h1>Meaning as Hub and Spoke</h1>
+  <p class="subtitle">Where a concept physically lives — and why your "tokens are a barrier to meaning"
+  hunch turns out to be a precise, testable claim about missing hardware.</p>
+
+  <div class="callout">
+    <span class="label">First, recall (from Lesson 1)</span>
+    <p>Before reading on: in one sentence, what does a top-down goal signal <em>do</em> in biased
+    competition? If it doesn't come back instantly, reopen
+    <a href="0001-attention-as-selection.html">Lesson 1</a> for ten seconds — spacing the recall is
+    what moves it from fluency to storage.</p>
+  </div>
+
+  <p>You've already reasoned about the LLM side of meaning: a word's meaning is its <em>position</em>
+  in a vector space learned from which tokens co-occur with which. Meaning is purely relational —
+  a token defined by other tokens. Your instinct was that this is a <em>barrier</em>: language
+  pointing only at more language, never at the world. This lesson gives that instinct a mechanism,
+  by showing what the brain has that the embedding space doesn't.</p>
+
+  <h2>The problem: one concept, many modalities</h2>
+
+  <p>Think of the concept <em>apple</em>. It has a look (red, round), a feel, a taste, a heft in the
+  hand, the action of biting, the word "apple," the word "manzana." These live in <em>different</em>
+  brain regions — vision, touch, motor, language. So what makes them one concept rather than seven
+  disconnected fragments? What lets the smell alone summon the name, and the name summon the look?</p>
+
+  <h2>The answer: spokes feed a hub</h2>
+
+  <p>The dominant account is the <strong>hub-and-spoke model</strong>
+  <sup class="cite"><a href="#c1">1</a></sup>. Meaning is built from two parts:</p>
+
+  <figure>
+    <svg viewBox="0 0 640 340" role="img" aria-labelledby="figtitle">
+      <title id="figtitle">Modality-specific spokes connected bidirectionally to a central transmodal hub</title>
+      <!-- Hub -->
+      <circle cx="320" cy="170" r="58" fill="#7a2e2e" opacity="0.12" stroke="#7a2e2e" stroke-width="2"/>
+      <text x="320" y="162" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="15" font-weight="700" fill="#7a2e2e">HUB</text>
+      <text x="320" y="182" text-anchor="middle" font-family="Inter,Arial,sans-serif" font-size="10.5" fill="#7a2e2e">anterior temporal lobe</text>
+
+      <!-- Spokes -->
+      <g font-family="Inter,Arial,sans-serif" font-size="12" fill="#2e5a7a" text-anchor="middle">
+        <g>
+          <circle cx="320" cy="40" r="30" fill="none" stroke="#2e5a7a" stroke-width="1.8"/>
+          <text x="320" y="38">vision</text><text x="320" y="52" font-size="9.5" fill="#6b6b6b">shape, colour</text>
+        </g>
+        <g>
+          <circle cx="540" cy="90" r="30" fill="none" stroke="#2e5a7a" stroke-width="1.8"/>
+          <text x="540" y="88">sound</text><text x="540" y="102" font-size="9.5" fill="#6b6b6b">crunch</text>
+        </g>
+        <g>
+          <circle cx="580" cy="240" r="30" fill="none" stroke="#2e5a7a" stroke-width="1.8"/>
+          <text x="580" y="238">action</text><text x="580" y="252" font-size="9.5" fill="#6b6b6b">bite, grasp</text>
+        </g>
+        <g>
+          <circle cx="320" cy="300" r="30" fill="none" stroke="#2e5a7a" stroke-width="1.8"/>
+          <text x="320" y="298">word</text><text x="320" y="312" font-size="9.5" fill="#6b6b6b">"apple"</text>
+        </g>
+        <g>
+          <circle cx="60" cy="240" r="30" fill="none" stroke="#2e5a7a" stroke-width="1.8"/>
+          <text x="60" y="238">touch</text><text x="60" y="252" font-size="9.5" fill="#6b6b6b">smooth</text>
+        </g>
+        <g>
+          <circle cx="100" cy="90" r="30" fill="none" stroke="#2e5a7a" stroke-width="1.8"/>
+          <text x="100" y="88">taste</text><text x="100" y="102" font-size="9.5" fill="#6b6b6b">sweet</text>
+        </g>
+      </g>
+
+      <!-- Bidirectional connections -->
+      <g stroke="#b08a8a" stroke-width="1.6">
+        <line x1="320" y1="70" x2="320" y2="112"/>
+        <line x1="516" y1="108" x2="366" y2="150"/>
+        <line x1="554" y1="218" x2="372" y2="182"/>
+        <line x1="320" y1="270" x2="320" y2="228"/>
+        <line x1="86" y1="218" x2="268" y2="182"/>
+        <line x1="124" y1="108" x2="274" y2="150"/>
+      </g>
+    </svg>
+    <figcaption>The <strong style="color:#2e5a7a">spokes</strong> are modality-specific regions
+    holding the sensory-motor and verbal features of a concept. The <strong style="color:#7a2e2e">hub</strong>
+    in the anterior temporal lobe is a <em>transmodal integrator</em>: it distills all the spokes
+    into a single modality-invariant concept, and connects bidirectionally so any one spoke can
+    reactivate the whole.</figcaption>
+  </figure>
+
+  <p>The hub's job is to capture <strong>deep similarity</strong> that no single spoke can see. A
+  robin and a sparrow share almost no specific pixels, sounds, or words — but they are alike as
+  <em>concepts</em>. That likeness only exists once features from every modality are fused into one
+  representation. The hub is where "meaning" as distinct from "features" is built
+  <sup class="cite"><a href="#c1">1</a></sup>.</p>
+
+  <h2>How we know it's real</h2>
+
+  <p>Two lines of evidence, one natural and one experimental:</p>
+  <ul>
+    <li><strong>Semantic dementia.</strong> When atrophy is focused on the anterior temporal lobe,
+    concepts degrade <em>across every modality at once</em> — the patient can't name a picture,
+    recognise the object, match it to a sound, or understand the word. Damage the hub and the whole
+    concept blurs, no matter how you probe it <sup class="cite"><a href="#c2">2</a></sup>.</li>
+    <li><strong>rTMS in healthy brains.</strong> Temporarily disrupting the ATL with magnetic
+    stimulation slows semantic judgements in neurologically normal people — briefly mimicking the
+    disorder, which shows the hub is doing this job in <em>every</em> brain
+    <sup class="cite"><a href="#c3">3</a></sup>.</li>
+  </ul>
+  <p>Damage a <em>spoke</em> instead, and you get a modality-<em>specific</em> hole — a problem with,
+  say, colours or actions, while the rest of the concept survives. Hub versus spoke damage is the
+  whole model's fingerprint.</p>
+
+  <h2>Now: what the LLM is missing</h2>
+
+  <p>Word embeddings are, in effect, a <em>hub-like relational space with no spokes</em>. They fuse
+  statistics <em>across tokens</em> into positions that capture conceptual similarity — genuinely
+  hub-like. But every dimension is grounded only in more tokens. There is no vision spoke, no action
+  spoke, nothing pointing at the world. This is the classic <strong>symbol grounding problem</strong>
+  <sup class="cite"><a href="#c4">4</a></sup>: symbols defined entirely by other symbols.</p>
+
+  <div class="callout parallel">
+    <span class="label">Parallel that holds</span>
+    <p>The embedding space and the ATL hub do the <em>same kind</em> of work: distilling many
+    scattered features into a modality-invariant point that captures deep similarity. The LLM really
+    does build a hub. Your "tokens as barrier" intuition is <em>not</em> that the hub is fake.</p>
+  </div>
+
+  <div class="callout breaks">
+    <span class="label">Where it breaks — the precise version of your hunch</span>
+    <p>The barrier isn't the hub; it's the <strong>missing spokes</strong>. A human concept is a hub
+    fed by sensory-motor experience of the world. An embedding is a hub fed only by text describing
+    the world. Mechanically, "language is a barrier to meaning for an LLM" = <em>the model has the
+    integrator but not the grounding it's supposed to integrate.</em></p>
+  </div>
+
+  <h2>Check yourself</h2>
+
+  <div class="quiz" data-answer="1">
+    <p class="q">What does the ATL hub contribute that the spokes alone cannot?</p>
+    <button class="opt">A store of raw visual features</button>
+    <button class="opt">A modality-invariant concept integrating all features</button>
+    <button class="opt">A faster route for word retrieval</button>
+    <button class="opt">A larger capacity for holding stimuli</button>
+    <div class="feedback">Right: the hub fuses the modality-specific spokes into one
+    modality-invariant concept, capturing deep similarity (robin ≈ sparrow) that no single spoke
+    can represent.</div>
+  </div>
+
+  <div class="quiz" data-answer="2">
+    <p class="q">Why are LLM word embeddings said to lack "grounding"?</p>
+    <button class="opt">They change every single forward pass completely</button>
+    <button class="opt">They cannot represent any abstract concepts whatsoever</button>
+    <button class="opt">They relate tokens only to other tokens</button>
+    <button class="opt">They store fewer features than human concepts</button>
+    <div class="feedback">Right: the embedding is a hub with no spokes — every dimension is defined
+    by other tokens, never by sensory-motor contact with the world. That's the symbol grounding
+    problem, and the mechanical form of "language as a barrier to meaning."</div>
+  </div>
+
+  <div class="primary-source">
+    <span class="label">Read next (primary source)</span>
+    Lambon Ralph, Jefferies, Patterson &amp; Rogers,
+    <a href="https://wiredbrains.org/wp-content/uploads/2023/07/Ralph-2016-Nature-Reviews-Neuroscience.pdf"><em>The neural and computational bases of semantic cognition</em></a>
+    (Nature Reviews Neuroscience, 2017) — the definitive statement of the hub-and-spoke model.
+    Read the opening sections and the figure on hub-and-spoke architecture.
+  </div>
+
+  <hr style="border:none;border-top:1px solid var(--rule);margin:2.5rem 0 0">
+  <h3 style="margin-top:1.5rem">Citations</h3>
+  <ol style="font-family:var(--sans);font-size:0.85rem;color:var(--muted);line-height:1.5">
+    <li id="c1">Hub-and-spoke model — Lambon Ralph et al., <a href="https://wiredbrains.org/wp-content/uploads/2023/07/Ralph-2016-Nature-Reviews-Neuroscience.pdf">Nature Reviews Neuroscience (2017)</a>.</li>
+    <li id="c2">Semantic dementia degrades concepts across all modalities — Hoffman, Jones &amp; Lambon Ralph; see <a href="https://www.sciencedirect.com/science/article/pii/S0010945217302812">semantic dementia review</a>.</li>
+    <li id="c3">ATL rTMS mimics semantic dementia in healthy brains — <a href="https://www.pnas.org/doi/10.1073/pnas.0707383104">Pobric, Jefferies &amp; Lambon Ralph, PNAS (2007)</a>.</li>
+    <li id="c4">The symbol grounding problem — Harnad (1990); overview via <a href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2022.906181/full">multimodal distributional semantics work</a>.</li>
+  </ol>
+
+  <p class="ask">Your teacher is one message away. Ask me to go deeper — why abstract concepts
+  (like "justice") are the hard case for grounding, how multimodal LLMs add spokes, or how this
+  sets up Lesson 3 on <em>spinning up and losing the thread</em>.</p>
+
+  <div class="lesson-nav">
+    <a href="0001-attention-as-selection.html">← Lesson 1</a>
+    <a href="../reference/glossary.html">Glossary →</a>
+  </div>
+
+  <script src="../assets/quiz.js"></script>
+</div>
+</body>
+</html>
