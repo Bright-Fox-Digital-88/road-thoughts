@@ -42,6 +42,22 @@
   Working memory isn't only sustained firing; representations can go "activity-silent" and
   be reconstituted. Use for: why a warmed-up state can fade yet be re-established.
 
+### Control, reward & ADHD (Concept 3, redirected)
+- [Paper: "Saliency, switching, attention and control: a network model of insula function" — Menon & Uddin (2010)](https://www.researchgate.net/publication/44639548_Saliency_switching_attention_and_control_A_network_model_of_insula_function)
+  The salience network as the switch between default-mode and executive networks — the triple-network
+  model. Use for: the accurate machinery behind "rider and elephant."
+- [Paper: "The dual pathway model of AD/HD" — Sonuga-Barke, *Neurosci. & Biobehav. Reviews* (2003)](https://www.researchgate.net/publication/9002225_The_dual_pathway_model_of_ADHD_An_elaboration_of_neuro-developmental_characteristics)
+  ADHD as two partly-independent pathways: executive dysfunction + delay aversion. Use for: why
+  ADHD is not one deficit and where the differences sit.
+- [Paper: "Spontaneous attentional fluctuations…" (default-mode interference hypothesis) — Sonuga-Barke & Castellanos (2007)](https://www.sciencedirect.com/science/article/abs/pii/S014976340700022X)
+  Attention lapses as DMN intrusion, not failed willpower. Use for: reframing the lived experience
+  of ADHD lapses mechanistically.
+- [Paper: "Waiting and working for rewards: ADHD… steeper delay discounting" (2018)](https://www.sciencedirect.com/science/article/abs/pii/S0010945218301746)
+  Evidence for steeper delay discounting and altered ventral-striatal reward response in ADHD.
+  Use for: the motivational pathway.
+- Book: Jonathan Haidt, *The Happiness Hypothesis* (2006) — origin of the rider/elephant metaphor.
+  Use for: the folk framing we rebuild; treat as metaphor, not mechanism.
+
 ## Wisdom (Communities)
 - [r/neuro](https://reddit.com/r/neuro) and [r/cogsci](https://reddit.com/r/cogsci)
   For testing framings and asking "did I understand this right?" — moderated, research-literate.
