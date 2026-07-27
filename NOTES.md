@@ -21,6 +21,14 @@
    user. Working-memory maintenance, goal silencing & reactivation, activity-silent states. Offered
    as Lesson 4. Sources already scouted (Nature Comms 2023 goal-silencing paper).
 
+## Published course URL
+- Interlinked single-page course (all 3 lessons + glossary) is published as an artifact:
+  https://claude.ai/code/artifact/e942f7bf-c53f-417d-9579-a1577cf21ea1
+- Regenerate with `assets/build-course-hub.py`, then re-publish to the SAME url by passing
+  `url=` that link to the Artifact tool. (User asked for "Cloudflare" — we used claude.ai hosting;
+  if they want their own Cloudflare Pages, the builder's output HTML is fully self-contained and
+  deployable as a single file.)
+
 ## Mission watch
 - ADHD self-understanding has emerged as a real motivating thread (see LR-0002). NOT yet folded into
   MISSION.md — ask the user before formalising. If confirmed, add a success criterion about reasoning
